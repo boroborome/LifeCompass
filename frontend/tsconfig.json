@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        "strict": true,
+        "target": "es5",
+        "lib": [
+            "dom",
+            "es2015"
+        ],
+        "module": "esnext",
+        "moduleResolution": "node",
+        "experimentalDecorators": true,
+        "importHelpers": true,
+        "allowJs": true,
+        "sourceMap": true,
+        "outDir": "target/transpiled-sources",
+        "baseUrl": ".",
+        "paths": {
+            "@Generated/*": [
+                "target/generated-sources/*"
+            ]
+        }
+    },
+    "include": [
+        "src/**/*",
+        "target/generated-sources/**/*"
+    ]
+}

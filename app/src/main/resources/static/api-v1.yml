@@ -1,0 +1,222 @@
+openapi: 3.0.0
+info:
+  title: Life Compass API
+  version: v1
+tags:
+  - name: lifeCompass
+    description: Manage the tasks list
+servers:
+- url: /api/v1
+paths:
+  /:
+    get:
+      summary: List all tasks
+      operationId: tasks
+      tags:
+        - taskList
+      responses:
+        '200':
+          description: An array of tasks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+    post:
+      summary: Add a new task
+      operationId: addTask
+      tags:
+        - taskList
+      requestBody:
+        description: Task to add
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+      responses:
+        '201':
+          description: Created
+          headers:
+            Location:
+              schema:
+                type: string
+                format: uri
+              description: URL of created task
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BadRequestDetails'
+    put:
+      summary: Overwrite all tasks
+      operationId: overwriteTasks
+      tags:
+        - taskList
+      requestBody:
+        description: Tasks to overwrite existing ones
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Task'
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BadRequestDetails'
+        '409':
+          description: Conflict
+          content:
+            text/plain:
+              schema:
+                type: string
+                description: Error message
+    delete:
+      summary: Delete all tasks
+      operationId: deleteTasks
+      tags:
+        - taskList
+      responses:
+        '200':
+          description: OK
+  /{id}:
+    get:
+      summary: Get a task
+      operationId: task
+      tags:
+        - taskList
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the task to retrieve
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: A task
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BadRequestDetails'
+        '404':
+          description: Not found
+    put:
+      summary: Update a task
+      operationId: updateTask
+      tags:
+        - taskList
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the task to update
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Task to overwrite the existing one
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BadRequestDetails'
+        '404':
+          description: Not found
+    delete:
+      summary: Delete a task
+      operationId: deleteTask
+      tags:
+        - taskList
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the task to delete
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BadRequestDetails'
+        '404':
+          description: Not found
+components:
+  schemas:
+    Task:
+      type: object
+      description: Task item
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: ID of a persisted task item
+        version:
+          type: integer
+          format: int64
+          description: Version of a persisted task item
+        title:
+          type: string
+          description: Task title or description
+          minLength: 4
+        completed:
+          type: boolean
+          description: Completed flag
+      required:
+      - title
+      - completed
+    BadRequestDetails:
+      type: object
+      description: Error details
+      properties:
+        message:
+          type: string
+          description: Error message
+        path:
+          type: string
+          description: Path to erroneous parameter or request attribute
+        rejectedValue:
+          description: Rejected value of erroneous attribute
+      required:
+      - message
