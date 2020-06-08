@@ -8,10 +8,10 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-@Constraint(validatedBy = UniqueTodoValidator.class)
+@Constraint(validatedBy = UniqueTaskValidator.class)
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface UniqueTodo {
+public @interface UniqueTask {
 
     String message() default "{io.github.hwestphal.todo.validation.UniqueTodo.message}";
 

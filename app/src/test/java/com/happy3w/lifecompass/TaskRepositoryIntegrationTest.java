@@ -1,11 +1,6 @@
 package com.happy3w.lifecompass;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.stream.Collectors;
-
-import javax.validation.ConstraintViolationException;
-
+import com.happy3w.lifecompass.generated.Tables;
 import org.jooq.Condition;
 import org.jooq.impl.DSL;
 import org.junit.Test;
@@ -16,6 +11,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.validation.ConstraintViolationException;
+import java.util.stream.Collectors;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.NONE, properties = "logging.level.org.jooq.tools.LoggerListener=DEBUG")
@@ -30,7 +30,7 @@ public class TaskRepositoryIntegrationTest {
     public void shouldFindOne() {
         Task task = Task.builder().title("title").build();
         long id = repository.insert(task);
-        Task foundTask = repository.findOne(com.happy3w.lifecompass.generated.tables.Todo.TODO.ID.eq(id));
+        Task foundTask = repository.findOne(Tables.TASK.ID.eq(id));
         assertThat(foundTask).isNotNull();
         assertThat(foundTask.getId()).isEqualTo(id);
         assertThat(foundTask.getTitle()).isEqualTo(task.getTitle());
@@ -50,7 +50,7 @@ public class TaskRepositoryIntegrationTest {
     public void shouldDeleteOne() {
         Task task = Task.builder().title("title").build();
         long id = repository.insert(task);
-        Condition condition = com.happy3w.lifecompass.generated.tables.Todo.TODO.ID.eq(id);
+        Condition condition = Tables.TASK.ID.eq(id);
         assertThat(repository.deleteAll(condition)).isEqualTo(1);
         assertThat(repository.findOne(condition)).isNull();
         assertThat(repository.deleteAll(condition)).isEqualTo(0);

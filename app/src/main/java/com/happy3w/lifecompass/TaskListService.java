@@ -1,17 +1,17 @@
 package com.happy3w.lifecompass;
 
-import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
-import com.happy3w.lifecompass.validation.UniqueTodo;
-
+import com.happy3w.lifecompass.generated.Tables;
+import com.happy3w.lifecompass.validation.UniqueTask;
 import org.jooq.impl.DSL;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
+
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -24,74 +24,74 @@ public class TaskListService {
         this.taskRepository = taskRepository;
     }
 
-    public List<com.happy3w.lifecompass.api.generated.Task> getTodos() {
+    public List<com.happy3w.lifecompass.api.generated.Task> getTasks() {
         return taskRepository.findAll(DSL.noCondition()).stream().map(TaskListService::toApi).collect(Collectors.toList());
     }
 
-    public long addTodo(@UniqueTodo com.happy3w.lifecompass.api.generated.Todo todo) {
-        return taskRepository.insert(fromApi(todo));
+    public long addTask(@UniqueTask com.happy3w.lifecompass.api.generated.Task task) {
+        return taskRepository.insert(fromApi(task));
     }
 
-    public com.happy3w.lifecompass.api.generated.Todo getTodo(long id) {
-        Task task = taskRepository.findOne(com.happy3w.lifecompass.generated.tables.Todo.TODO.ID.eq(id));
+    public com.happy3w.lifecompass.api.generated.Task getTask(long id) {
+        Task task = taskRepository.findOne(Tables.TASK.ID.eq(id));
         if (task == null) {
             return null;
         }
         return toApi(task);
     }
 
-    public boolean updateTodo(long id, com.happy3w.lifecompass.api.generated.Todo todo) {
-        Task foundTask = taskRepository.findOneForUpdate(com.happy3w.lifecompass.generated.tables.Todo.TODO.ID.eq(id).and(com.happy3w.lifecompass.generated.tables.Todo.TODO.VERSION.eq(todo.getVersion())));
+    public boolean updateTodo(long id, com.happy3w.lifecompass.api.generated.Task task) {
+        Task foundTask = taskRepository.findOneForUpdate(Tables.TASK.ID.eq(id).and(Tables.TASK.VERSION.eq(task.getVersion())));
         if (foundTask == null) {
             return false;
         }
-        foundTask.setTitle(todo.getTitle());
-        foundTask.setCompleted(todo.getCompleted());
+        foundTask.setTitle(task.getTitle());
+        foundTask.setCompleted(task.getCompleted());
         taskRepository.update(foundTask);
         return true;
     }
 
-    public void overwriteTodos(List<com.happy3w.lifecompass.api.generated.Todo> todos)
+    public void overwriteTasks(List<com.happy3w.lifecompass.api.generated.Task> tasks)
             throws OptimisticLockingFailureException {
-        Map<Long, Task> allTodos = taskRepository.findAllForUpdate(DSL.noCondition())
+        Map<Long, Task> allTasks = taskRepository.findAllForUpdate(DSL.noCondition())
                 .stream()
                 .collect(Collectors.toMap(Task::getId, Function.identity()));
-        for (com.happy3w.lifecompass.api.generated.Todo todo : todos) {
-            Task updatedTask = allTodos.remove(todo.getId());
+        for (com.happy3w.lifecompass.api.generated.Task task : tasks) {
+            Task updatedTask = allTasks.remove(task.getId());
             if (updatedTask != null) {
-                if (!updatedTask.getVersion().equals(todo.getVersion())) {
+                if (!updatedTask.getVersion().equals(task.getVersion())) {
                     throw new OptimisticLockingFailureException(
-                            String.format("cannot update %s with stale data %s", updatedTask, todo));
+                            String.format("cannot update %s with stale data %s", updatedTask, task));
                 }
-                updatedTask.setTitle(todo.getTitle());
-                updatedTask.setCompleted(todo.getCompleted());
+                updatedTask.setTitle(task.getTitle());
+                updatedTask.setCompleted(task.getCompleted());
                 taskRepository.update(updatedTask);
             } else {
-                taskRepository.insert(fromApi(todo));
+                taskRepository.insert(fromApi(task));
             }
         }
-        taskRepository.deleteAll(com.happy3w.lifecompass.generated.tables.Todo.TODO.ID.in(allTodos.keySet()));
+        taskRepository.deleteAll(Tables.TASK.ID.in(allTasks.keySet()));
     }
 
-    public boolean deleteTodo(long id) {
-        return taskRepository.deleteAll(com.happy3w.lifecompass.generated.tables.Todo.TODO.ID.eq(id)) > 0;
+    public boolean deleteTask(long id) {
+        return taskRepository.deleteAll(Tables.TASK.ID.eq(id)) > 0;
     }
 
-    public void deleteTodos() {
+    public void deleteTasks() {
         taskRepository.deleteAll(DSL.noCondition());
     }
 
-    private static Task fromApi(com.happy3w.lifecompass.api.generated.Todo todo) {
+    private static Task fromApi(com.happy3w.lifecompass.api.generated.Task task) {
         return Task.builder()
-                .id(todo.getId())
-                .version(todo.getVersion())
-                .title(todo.getTitle())
-                .completed(todo.getCompleted())
+                .id(task.getId())
+                .version(task.getVersion())
+                .title(task.getTitle())
+                .completed(task.getCompleted())
                 .build();
     }
 
-    private static com.happy3w.lifecompass.api.generated.Todo toApi(Task task) {
-        return new com.happy3w.lifecompass.api.generated.Todo().id(task.getId())
+    private static com.happy3w.lifecompass.api.generated.Task toApi(Task task) {
+        return new com.happy3w.lifecompass.api.generated.Task().id(task.getId())
                 .version(task.getVersion())
                 .title(task.getTitle())
                 .completed(task.isCompleted());

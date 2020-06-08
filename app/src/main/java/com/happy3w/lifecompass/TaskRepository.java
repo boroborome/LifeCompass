@@ -1,14 +1,7 @@
 package com.happy3w.lifecompass;
 
-import static com.happy3w.lifecompass.generated.tables.Todo.TODO;
-
-import java.util.List;
-
-import javax.validation.Valid;
-
 import com.happy3w.auditing.Create;
 import com.happy3w.auditing.Modify;
-
 import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.ResultQuery;
@@ -17,6 +10,11 @@ import org.jooq.impl.DSL;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.stereotype.Repository;
 import org.springframework.validation.annotation.Validated;
+
+import javax.validation.Valid;
+import java.util.List;
+
+import static com.happy3w.lifecompass.generated.Tables.TASK;
 
 @Repository
 @Validated
@@ -55,16 +53,16 @@ public class TaskRepository {
         SelectForUpdateStep<?> queryStep = dsl
                 .select(
                         TASK.ID,
-                        TODO.VERSION,
-                        TODO.CREATED,
-                        TODO.CREATE_USER,
-                        TODO.MODIFIED,
-                        TODO.MODIFY_USER,
-                        TODO.TITLE,
-                        TODO.COMPLETED)
-                .from(TODO)
+                        TASK.VERSION,
+                        TASK.CREATED,
+                        TASK.CREATE_USER,
+                        TASK.MODIFIED,
+                        TASK.MODIFY_USER,
+                        TASK.TITLE,
+                        TASK.COMPLETED)
+                .from(TASK)
                 .where(condition)
-                .orderBy(TODO.ID.asc());
+                .orderBy(TASK.ID.asc());
         ResultQuery<?> query = update ? queryStep.forUpdate() : queryStep;
         return query.fetchInto(Task.class);
     }
@@ -75,30 +73,30 @@ public class TaskRepository {
 
     @Create
     public long insert(@Valid Task task) {
-        return dsl.insertInto(TODO)
-                .set(TODO.CREATE_USER, task.getCreateUser())
-                .set(TODO.MODIFY_USER, task.getModifyUser())
-                .set(TODO.TITLE, task.getTitle())
-                .set(TODO.COMPLETED, task.isCompleted())
-                .returning(TODO.ID)
+        return dsl.insertInto(TASK)
+                .set(TASK.CREATE_USER, task.getCreateUser())
+                .set(TASK.MODIFY_USER, task.getModifyUser())
+                .set(TASK.TITLE, task.getTitle())
+                .set(TASK.COMPLETED, task.isCompleted())
+                .returning(TASK.ID)
                 .fetchOne()
-                .getValue(TODO.ID);
+                .getValue(TASK.ID);
     }
 
     @Modify
     public void update(@Valid Task task) {
-        dsl.update(TODO)
-                .set(TODO.VERSION, TODO.VERSION.add(1))
-                .set(TODO.MODIFIED, DSL.currentLocalDateTime())
-                .set(TODO.MODIFY_USER, task.getModifyUser())
-                .set(TODO.TITLE, task.getTitle())
-                .set(TODO.COMPLETED, task.isCompleted())
-                .where(TODO.ID.eq(task.getId()))
+        dsl.update(TASK)
+                .set(TASK.VERSION, TASK.VERSION.add(1))
+                .set(TASK.MODIFIED, DSL.currentLocalDateTime())
+                .set(TASK.MODIFY_USER, task.getModifyUser())
+                .set(TASK.TITLE, task.getTitle())
+                .set(TASK.COMPLETED, task.isCompleted())
+                .where(TASK.ID.eq(task.getId()))
                 .execute();
     }
 
     public long deleteAll(Condition condition) {
-        return dsl.delete(TODO).where(condition).execute();
+        return dsl.delete(TASK).where(condition).execute();
     }
 
 }
