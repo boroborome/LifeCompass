@@ -1,4 +1,4 @@
-package com.happy3w.lifecompass;
+package com.happy3w.lifecompass.controller;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 
 import com.happy3w.lifecompass.api.generated.TaskDto;
 import com.happy3w.lifecompass.api.generated.TaskListApi;
+import com.happy3w.lifecompass.model.Task;
+import com.happy3w.lifecompass.service.TaskService;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.happy3w.lifecompass;
+package com.happy3w.lifecompass.model;
 
 import java.time.LocalDateTime;
 

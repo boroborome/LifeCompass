@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 import javax.validation.ConstraintViolationException;
 
 import com.happy3w.lifecompass.generated.Tables;
+import com.happy3w.lifecompass.model.Task;
+import com.happy3w.lifecompass.repository.TaskRepository;
 import org.jooq.Condition;
 import org.jooq.impl.DSL;
 import org.junit.Test;

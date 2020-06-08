@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.happy3w.lifecompass.api.generated.BadRequestDetails;
+import com.happy3w.lifecompass.model.Task;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

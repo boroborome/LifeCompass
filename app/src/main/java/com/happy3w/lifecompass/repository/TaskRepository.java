@@ -1,4 +1,4 @@
-package com.happy3w.lifecompass;
+package com.happy3w.lifecompass.repository;
 
 import static com.happy3w.lifecompass.generated.Tables.TASK;
 
@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import com.happy3w.auditing.Create;
 import com.happy3w.auditing.Modify;
+import com.happy3w.lifecompass.model.Task;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.ResultQuery;

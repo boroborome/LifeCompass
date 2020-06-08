@@ -1,4 +1,4 @@
-package com.happy3w.lifecompass;
+package com.happy3w.lifecompass.controller;
 
 import java.util.Iterator;
 

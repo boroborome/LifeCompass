@@ -1,4 +1,4 @@
-package com.happy3w.lifecompass;
+package com.happy3w.lifecompass.service;
 
 import java.util.List;
 import java.util.Map;
@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.happy3w.lifecompass.generated.Tables;
+import com.happy3w.lifecompass.model.Task;
+import com.happy3w.lifecompass.repository.TaskRepository;
 import com.happy3w.lifecompass.validation.UniqueTask;
 import org.jooq.impl.DSL;
 import org.springframework.dao.OptimisticLockingFailureException;
