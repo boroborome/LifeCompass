@@ -58,7 +58,8 @@ springboot</panel_attributes>
       <w>120</w>
       <h>30</h>
     </coordinates>
-    <panel_attributes>ProjectView</panel_attributes>
+    <panel_attributes>ProjectView
+bg=green</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -91,7 +92,8 @@ springboot</panel_attributes>
       <w>120</w>
       <h>30</h>
     </coordinates>
-    <panel_attributes>ProjectService</panel_attributes>
+    <panel_attributes>ProjectService
+bg=green</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -113,7 +115,8 @@ springboot</panel_attributes>
       <w>120</w>
       <h>30</h>
     </coordinates>
-    <panel_attributes>TaskService</panel_attributes>
+    <panel_attributes>TaskService
+bg=green</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -124,7 +127,8 @@ springboot</panel_attributes>
       <w>120</w>
       <h>30</h>
     </coordinates>
-    <panel_attributes>EventSrvice</panel_attributes>
+    <panel_attributes>EventSrvice
+bg=green</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -135,7 +139,8 @@ springboot</panel_attributes>
       <w>140</w>
       <h>30</h>
     </coordinates>
-    <panel_attributes>TaskHistorySrvice</panel_attributes>
+    <panel_attributes>TaskHistorySrvice
+bg=green</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -146,7 +151,8 @@ springboot</panel_attributes>
       <w>180</w>
       <h>30</h>
     </coordinates>
-    <panel_attributes>TaskManagerService</panel_attributes>
+    <panel_attributes>TaskManagerService
+bg=green</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -245,7 +251,8 @@ springboot</panel_attributes>
       <w>120</w>
       <h>30</h>
     </coordinates>
-    <panel_attributes>ProjectApi</panel_attributes>
+    <panel_attributes>ProjectApi
+bg=green</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -333,7 +340,8 @@ springboot</panel_attributes>
       <w>120</w>
       <h>30</h>
     </coordinates>
-    <panel_attributes>TaskRepo</panel_attributes>
+    <panel_attributes>TaskRepo
+bg=green</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -344,7 +352,8 @@ springboot</panel_attributes>
       <w>140</w>
       <h>30</h>
     </coordinates>
-    <panel_attributes>TaskHistoryRepo</panel_attributes>
+    <panel_attributes>TaskHistoryRepo
+bg=green</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -355,7 +364,8 @@ springboot</panel_attributes>
       <w>120</w>
       <h>30</h>
     </coordinates>
-    <panel_attributes>EventRepo</panel_attributes>
+    <panel_attributes>EventRepo
+bg=green</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
