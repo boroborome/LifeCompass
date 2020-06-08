@@ -1,5 +1,10 @@
 package com.happy3w.lifecompass;
 
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 import com.happy3w.lifecompass.api.generated.TaskDto;
 import com.happy3w.lifecompass.generated.Tables;
 import com.happy3w.lifecompass.validation.UniqueTask;
@@ -9,19 +14,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
-import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
 @Service
 @Transactional
 @Validated
-public class TaskListService {
+public class TaskService {
 
     private final TaskRepository taskRepository;
 
-    public TaskListService(TaskRepository taskRepository) {
+    public TaskService(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
     }
 
@@ -52,8 +52,7 @@ public class TaskListService {
         return true;
     }
 
-    public void overwriteTasks(List<TaskDto> tasks)
-            throws OptimisticLockingFailureException {
+    public void overwriteTasks(List<TaskDto> tasks) throws OptimisticLockingFailureException {
         Map<Long, Task> allTasks = taskRepository.findAllForUpdate(DSL.noCondition())
                 .stream()
                 .collect(Collectors.toMap(Task::getId, Function.identity()));

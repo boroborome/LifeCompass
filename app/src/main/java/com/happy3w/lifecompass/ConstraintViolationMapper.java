@@ -8,7 +8,6 @@ import javax.validation.Path;
 import javax.validation.Path.Node;
 
 import com.happy3w.lifecompass.api.generated.BadRequestDetails;
-
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
 

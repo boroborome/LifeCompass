@@ -1,12 +1,12 @@
 package com.happy3w.lifecompass.validation;
 
-import com.happy3w.lifecompass.TaskRepository;
-import com.happy3w.lifecompass.api.generated.TaskDto;
+import static com.happy3w.lifecompass.generated.Tables.TASK;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import static com.happy3w.lifecompass.generated.Tables.TASK;
+import com.happy3w.lifecompass.TaskRepository;
+import com.happy3w.lifecompass.api.generated.TaskDto;
 
 class UniqueTaskValidator implements ConstraintValidator<UniqueTask, TaskDto> {
 

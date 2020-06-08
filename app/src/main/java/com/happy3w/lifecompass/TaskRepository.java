@@ -1,5 +1,11 @@
 package com.happy3w.lifecompass;
 
+import static com.happy3w.lifecompass.generated.Tables.TASK;
+
+import java.util.List;
+
+import javax.validation.Valid;
+
 import com.happy3w.auditing.Create;
 import com.happy3w.auditing.Modify;
 import org.jooq.Condition;
@@ -10,11 +16,6 @@ import org.jooq.impl.DSL;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.stereotype.Repository;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
-import java.util.List;
-
-import static com.happy3w.lifecompass.generated.Tables.TASK;
 
 @Repository
 @Validated

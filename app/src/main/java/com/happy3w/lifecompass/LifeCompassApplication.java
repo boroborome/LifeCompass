@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 @SpringBootApplication
 @EnableAuditing
 @Import(MessageSourceConfiguration.class)
-public class TodoListApplication {
+public class LifeCompassApplication {
 
     @GetMapping("/api")
     public String defaultSwaggerUi() {
@@ -32,7 +32,7 @@ public class TodoListApplication {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(TodoListApplication.class, args);
+        SpringApplication.run(LifeCompassApplication.class, args);
     }
 
 }

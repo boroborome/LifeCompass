@@ -9,7 +9,6 @@ import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
 import com.happy3w.lifecompass.api.generated.BadRequestDetails;
-
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.ResponseEntity;

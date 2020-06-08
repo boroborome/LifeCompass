@@ -1,5 +1,11 @@
 package com.happy3w.lifecompass;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.stream.Collectors;
+
+import javax.validation.ConstraintViolationException;
+
 import com.happy3w.lifecompass.generated.Tables;
 import org.jooq.Condition;
 import org.jooq.impl.DSL;
@@ -11,11 +17,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.validation.ConstraintViolationException;
-import java.util.stream.Collectors;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.NONE, properties = "logging.level.org.jooq.tools.LoggerListener=DEBUG")
