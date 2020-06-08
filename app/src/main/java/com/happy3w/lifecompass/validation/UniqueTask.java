@@ -13,7 +13,7 @@ import javax.validation.Payload;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface UniqueTask {
 
-    String message() default "{io.github.hwestphal.todo.validation.UniqueTodo.message}";
+    String message() default "{com.happy3w.lifecompass.UniqueTask.message}";
 
     Class<?>[] groups() default {};
 

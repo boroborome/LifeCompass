@@ -48,7 +48,7 @@ public class TaskController implements TaskListApi {
     }
 
     public ResponseEntity<Void> updateTask(Long id, TaskDto task) {
-        if (taskService.updateTodo(id, fromApi(task))) {
+        if (taskService.updateTask(id, fromApi(task))) {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();

@@ -41,7 +41,7 @@ public class TaskService {
         return task;
     }
 
-    public boolean updateTodo(long id, Task task) {
+    public boolean updateTask(long id, Task task) {
         Task foundTask = taskRepository.findOneForUpdate(Tables.TASK.ID.eq(id).and(Tables.TASK.VERSION.eq(task.getVersion())));
         if (foundTask == null) {
             return false;
