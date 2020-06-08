@@ -1,8 +1,7 @@
 package com.happy3w.lifecompass;
 
-import com.happy3w.i18n.MessageSourceConfiguration;
 import com.happy3w.auditing.EnableAuditing;
-
+import com.happy3w.i18n.MessageSourceConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
