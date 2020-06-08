@@ -1,5 +1,11 @@
 package com.happy3w.lifecompass;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.happy3w.lifecompass.api.generated.TaskDto;
 import com.happy3w.lifecompass.api.generated.TaskListApi;
 import org.springframework.dao.OptimisticLockingFailureException;
@@ -10,12 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @Controller
 @RequestMapping("/api/v1")
@@ -55,8 +55,7 @@ public class TaskController implements TaskListApi {
     }
 
     public ResponseEntity<Void> overwriteTasks(List<TaskDto> tasks) {
-        taskService.overwriteTasks(tasks.stream()
-                .map(TaskController::fromApi));
+        taskService.overwriteTasks(tasks.stream().map(TaskController::fromApi));
         return ResponseEntity.ok().build();
     }
 

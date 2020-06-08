@@ -1,5 +1,11 @@
 package com.happy3w.lifecompass;
 
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import com.happy3w.lifecompass.generated.Tables;
 import com.happy3w.lifecompass.validation.UniqueTask;
 import org.jooq.impl.DSL;
@@ -7,12 +13,6 @@ import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
-
-import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 @Transactional
