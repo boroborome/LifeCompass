@@ -1,11 +1,5 @@
 package com.happy3w.lifecompass;
 
-import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
-import com.happy3w.lifecompass.api.generated.TaskDto;
 import com.happy3w.lifecompass.generated.Tables;
 import com.happy3w.lifecompass.validation.UniqueTask;
 import org.jooq.impl.DSL;
@@ -13,6 +7,12 @@ import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
+
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @Transactional
@@ -29,8 +29,8 @@ public class TaskService {
         return taskRepository.findAll(DSL.noCondition());
     }
 
-    public long addTask(@UniqueTask TaskDto task) {
-        return taskRepository.insert(fromApi(task));
+    public long addTask(@UniqueTask Task task) {
+        return taskRepository.insert(task);
     }
 
     public Task getTask(long id) {
@@ -41,22 +41,22 @@ public class TaskService {
         return task;
     }
 
-    public boolean updateTodo(long id, TaskDto task) {
+    public boolean updateTodo(long id, Task task) {
         Task foundTask = taskRepository.findOneForUpdate(Tables.TASK.ID.eq(id).and(Tables.TASK.VERSION.eq(task.getVersion())));
         if (foundTask == null) {
             return false;
         }
         foundTask.setTitle(task.getTitle());
-        foundTask.setCompleted(task.getCompleted());
+        foundTask.setCompleted(task.isCompleted());
         taskRepository.update(foundTask);
         return true;
     }
 
-    public void overwriteTasks(List<TaskDto> tasks) throws OptimisticLockingFailureException {
+    public void overwriteTasks(Stream<Task> tasks) throws OptimisticLockingFailureException {
         Map<Long, Task> allTasks = taskRepository.findAllForUpdate(DSL.noCondition())
                 .stream()
                 .collect(Collectors.toMap(Task::getId, Function.identity()));
-        for (TaskDto task : tasks) {
+        tasks.forEach(task -> {
             Task updatedTask = allTasks.remove(task.getId());
             if (updatedTask != null) {
                 if (!updatedTask.getVersion().equals(task.getVersion())) {
@@ -64,12 +64,12 @@ public class TaskService {
                             String.format("cannot update %s with stale data %s", updatedTask, task));
                 }
                 updatedTask.setTitle(task.getTitle());
-                updatedTask.setCompleted(task.getCompleted());
+                updatedTask.setCompleted(task.isCompleted());
                 taskRepository.update(updatedTask);
             } else {
-                taskRepository.insert(fromApi(task));
+                taskRepository.insert(task);
             }
-        }
+        });
         taskRepository.deleteAll(Tables.TASK.ID.in(allTasks.keySet()));
     }
 
@@ -80,14 +80,4 @@ public class TaskService {
     public void deleteTasks() {
         taskRepository.deleteAll(DSL.noCondition());
     }
-
-    private static Task fromApi(TaskDto task) {
-        return Task.builder()
-                .id(task.getId())
-                .version(task.getVersion())
-                .title(task.getTitle())
-                .completed(task.getCompleted())
-                .build();
-    }
-
 }

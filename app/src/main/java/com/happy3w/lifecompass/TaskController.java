@@ -1,11 +1,5 @@
 package com.happy3w.lifecompass;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
 import com.happy3w.lifecompass.api.generated.TaskDto;
 import com.happy3w.lifecompass.api.generated.TaskListApi;
 import org.springframework.dao.OptimisticLockingFailureException;
@@ -16,6 +10,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @Controller
 @RequestMapping("/api/v1")
@@ -34,7 +34,7 @@ public class TaskController implements TaskListApi {
     }
 
     public ResponseEntity<Void> addTask(TaskDto task) {
-        long id = taskService.addTask(task);
+        long id = taskService.addTask(fromApi(task));
         return ResponseEntity.created(linkTo(methodOn(TaskController.class)._task(id)).toUri()).build();
     }
 
@@ -48,14 +48,15 @@ public class TaskController implements TaskListApi {
     }
 
     public ResponseEntity<Void> updateTask(Long id, TaskDto task) {
-        if (taskService.updateTodo(id, task)) {
+        if (taskService.updateTodo(id, fromApi(task))) {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
     }
 
     public ResponseEntity<Void> overwriteTasks(List<TaskDto> tasks) {
-        taskService.overwriteTasks(tasks);
+        taskService.overwriteTasks(tasks.stream()
+                .map(TaskController::fromApi));
         return ResponseEntity.ok().build();
     }
 
@@ -80,5 +81,14 @@ public class TaskController implements TaskListApi {
 
     private static TaskDto toApi(Task task) {
         return new TaskDto().id(task.getId()).version(task.getVersion()).title(task.getTitle()).completed(task.isCompleted());
+    }
+
+    private static Task fromApi(TaskDto task) {
+        return Task.builder()
+                .id(task.getId())
+                .version(task.getVersion())
+                .title(task.getTitle())
+                .completed(task.getCompleted())
+                .build();
     }
 }
