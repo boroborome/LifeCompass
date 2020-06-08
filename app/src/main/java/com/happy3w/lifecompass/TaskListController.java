@@ -26,32 +26,32 @@ public class TaskListController implements TaskListApi {
     }
 
     @Override
-    public ResponseEntity<List<com.happy3w.lifecompass.api.generated.Task>> tasks() {
+    public ResponseEntity<List<com.happy3w.lifecompass.api.generated.TaskDto>> tasks() {
         return ResponseEntity.ok().cacheControl(CacheControl.noStore()).body(taskListService.getTasks());
     }
 
-    public ResponseEntity<Void> addTask(com.happy3w.lifecompass.api.generated.Task task) {
+    public ResponseEntity<Void> addTask(com.happy3w.lifecompass.api.generated.TaskDto task) {
         long id = taskListService.addTask(task);
         return ResponseEntity.created(linkTo(methodOn(TaskListController.class)._task(id)).toUri()).build();
     }
 
     @Override
-    public ResponseEntity<com.happy3w.lifecompass.api.generated.Task> task(Long id) {
-        com.happy3w.lifecompass.api.generated.Task task = taskListService.getTask(id);
+    public ResponseEntity<com.happy3w.lifecompass.api.generated.TaskDto> task(Long id) {
+        com.happy3w.lifecompass.api.generated.TaskDto task = taskListService.getTask(id);
         if (task == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok().cacheControl(CacheControl.noStore()).body(task);
     }
 
-    public ResponseEntity<Void> updateTask(Long id, com.happy3w.lifecompass.api.generated.Task task) {
+    public ResponseEntity<Void> updateTask(Long id, com.happy3w.lifecompass.api.generated.TaskDto task) {
         if (taskListService.updateTodo(id, task)) {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
     }
 
-    public ResponseEntity<Void> overwriteTasks(List<com.happy3w.lifecompass.api.generated.Task> tasks) {
+    public ResponseEntity<Void> overwriteTasks(List<com.happy3w.lifecompass.api.generated.TaskDto> tasks) {
         taskListService.overwriteTasks(tasks);
         return ResponseEntity.ok().build();
     }

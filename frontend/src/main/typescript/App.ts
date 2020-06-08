@@ -1,4 +1,4 @@
-import { Task } from "@Generated/openapi";
+import { TaskDto } from "@Generated/openapi";
 import Vue from "vue";
 import { Component, Inject } from "vue-property-decorator";
 import AutoComplete from "./AutoComplete.vue";
@@ -44,15 +44,15 @@ export default class App extends Vue {
         return this.taskList.changed;
     }
 
-    close(task: Task) {
+    close(task: TaskDto) {
         task.completed = true;
     }
 
-    open(task: Task) {
+    open(task: TaskDto) {
         task.completed = false;
     }
 
-    remove(task: Task) {
+    remove(task: TaskDto) {
         this.taskList.remove(task);
     }
 

@@ -1,4 +1,4 @@
-import { Task } from "@Generated/openapi";
+import { TaskDto } from "@Generated/openapi";
 import { config, mount } from "@vue/test-utils";
 import { createRenderer } from "vue-server-renderer";
 import App from "./App.vue";
@@ -20,7 +20,7 @@ const mockSave = jest.fn();
 
 @reactive
 class TaskListFake {
-    constructor(public tasks: Task[] = [], public changed = false) { }
+    constructor(public tasks: TaskDto[] = [], public changed = false) { }
     add(...args: any[]) {
         mockAdd(...args);
     }

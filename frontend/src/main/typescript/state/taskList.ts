@@ -1,4 +1,4 @@
-import { Task, TaskListApiInterface } from "@Generated/openapi";
+import { TaskDto, TaskListApiInterface } from "@Generated/openapi";
 import { reactive } from "../reactive";
 
 export class ConflictError {
@@ -6,8 +6,8 @@ export class ConflictError {
 
 @reactive
 export class TaskList {
-    private localTasks: Task[] = [];
-    private savedTasks!: Task[];
+    private localTasks: TaskDto[] = [];
+    private savedTasks!: TaskDto[];
 
     constructor(private taskListApi: TaskListApiInterface) {
     }
@@ -20,7 +20,7 @@ export class TaskList {
         return JSON.stringify(this.localTasks) !== JSON.stringify(this.savedTasks);
     }
 
-    remove(task: Task) {
+    remove(task: TaskDto) {
         const i = this.localTasks.indexOf(task);
         if (i >= 0) {
             this.localTasks.splice(i, 1);

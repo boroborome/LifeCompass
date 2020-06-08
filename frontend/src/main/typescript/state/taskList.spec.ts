@@ -1,4 +1,4 @@
-import { Task } from "@Generated/openapi";
+import { TaskDto } from "@Generated/openapi";
 import { ConflictError, TaskList } from "./taskList";
 
 const mockGetTasks = jest.fn();
@@ -9,7 +9,7 @@ afterEach(() => {
     mockOverwriteTasks.mockReset();
 });
 
-async function createTaskList(tasks: Task[]) {
+async function createTaskList(tasks: TaskDto[]) {
     mockGetTasks.mockResolvedValue(tasks);
     const taskList = new TaskList({
         overwriteTasks: mockOverwriteTasks,
@@ -36,7 +36,7 @@ describe("tasklist", () => {
     });
 
     it("removes a task", async () => {
-        const task: Task = { title: "task", completed: false };
+        const task: TaskDto = { title: "task", completed: false };
         const taskList = await createTaskList([task]);
         taskList.remove(task);
         expect(taskList.changed).toBe(false);

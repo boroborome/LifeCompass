@@ -22,7 +22,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Task'
+                  $ref: '#/components/schemas/TaskDto'
     post:
       summary: Add a new task
       operationId: addTask
@@ -34,7 +34,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Task'
+              $ref: '#/components/schemas/TaskDto'
       responses:
         '201':
           description: Created
@@ -65,7 +65,7 @@ paths:
             schema:
               type: array
               items:
-                $ref: '#/components/schemas/Task'
+                $ref: '#/components/schemas/TaskDto'
       responses:
         '200':
           description: OK
@@ -112,7 +112,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Task'
+                $ref: '#/components/schemas/TaskDto'
         '400':
           description: Bad Request
           content:
@@ -142,7 +142,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Task'
+              $ref: '#/components/schemas/TaskDto'
       responses:
         '200':
           description: OK
@@ -184,7 +184,7 @@ paths:
           description: Not found
 components:
   schemas:
-    Task:
+    TaskDto:
       type: object
       description: Task item
       properties:
