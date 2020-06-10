@@ -12,7 +12,7 @@
     <panel_attributes>Task
 -
 id
-name
+title
 parentId
 priority
 detail
