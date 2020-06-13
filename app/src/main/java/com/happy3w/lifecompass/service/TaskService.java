@@ -48,7 +48,20 @@ public class TaskService {
         if (foundTask == null) {
             return false;
         }
+        foundTask.setParentId(task.getParentId());
+
         foundTask.setTitle(task.getTitle());
+        foundTask.setDetail(task.getDetail());
+        if (!foundTask.isParent()) {
+            foundTask.setStatus(task.getStatus());
+        }
+        foundTask.setPriority(task.getPriority());
+        foundTask.setEstimatedTime(task.getEstimatedTime());
+        foundTask.setPlanStartTime(task.getPlanStartTime());
+        foundTask.setPlanEndTime(task.getPlanEndTime());
+        foundTask.setActualStartTime(task.getActualStartTime());
+        foundTask.setActualEndTime(task.getActualEndTime());
+
         foundTask.setCompleted(task.isCompleted());
         taskRepository.update(foundTask);
         return true;

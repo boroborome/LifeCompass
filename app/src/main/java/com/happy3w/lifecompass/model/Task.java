@@ -30,16 +30,16 @@ public class Task {
     private String title;
     private String detail;
     private String status;
-    private float progress;
+    private double progress;
 
     private Long priority;
     private Long estimatedTime;
 
-    private Date planStartTime;
-    private Date planEndTime;
+    private Long planStartTime;
+    private Long planEndTime;
 
-    private Date actualStartTime;
-    private Date actualEndTime;
+    private Long actualStartTime;
+    private Long actualEndTime;
 
     private LocalDateTime created;
 
