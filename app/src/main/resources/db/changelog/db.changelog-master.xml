@@ -5,6 +5,9 @@
             <column name="ID" type="BIGINT">
                 <constraints primaryKey="true" primaryKeyName="TASK_PK" nullable="false" />
             </column>
+            <column name="TITLE" type="VARCHAR(255 CHAR)">
+                <constraints nullable="false" />
+            </column>
             <column name="VERSION" type="BIGINT" defaultValueNumeric="0">
                 <constraints nullable="false" />
             </column>
@@ -20,13 +23,19 @@
             <column name="STATUS" type="VARCHAR(20 CHAR)">
                 <constraints nullable="false" />
             </column>
-            <column name="START_TIME" type="TIMESTAMP">
+            <column name="PLAN_START_TIME" type="TIMESTAMP">
                 <constraints nullable="true" />
             </column>
-            <column name="END_TIME" type="TIMESTAMP">
+            <column name="PLAN_END_TIME" type="TIMESTAMP">
                 <constraints nullable="true" />
             </column>
-            <column name="EXPECT_TIME" type="BIGINT">
+            <column name="ACTUAL_START_TIME" type="TIMESTAMP">
+                <constraints nullable="true" />
+            </column>
+            <column name="ACTUAL_END_TIME" type="TIMESTAMP">
+                <constraints nullable="true" />
+            </column>
+            <column name="ESTIMATED_TIME" type="BIGINT">
                 <constraints nullable="true" />
             </column>
 
@@ -47,9 +56,6 @@
                 <constraints nullable="false" />
             </column>
             <column name="MODIFY_USER" type="VARCHAR(255 CHAR)" defaultValueComputed="current_user">
-                <constraints nullable="false" />
-            </column>
-            <column name="TITLE" type="VARCHAR(255 CHAR)">
                 <constraints nullable="false" />
             </column>
 

@@ -192,14 +192,58 @@ components:
           type: integer
           format: int64
           description: ID of a persisted task item
+        title:
+          type: string
+          description: Task title
+          minLength: 4
         version:
           type: integer
           format: int64
           description: Version of a persisted task item
-        title:
+        parentId:
+          type: integer
+          format: int64
+          description: ID of parent task
+        priority:
+          type: integer
+          format: int64
+          description: priority of task item
+        detail:
           type: string
-          description: Task title or description
+          description: Task description
           minLength: 4
+        status:
+          type: string
+          description: Task status
+          minLength: 4
+        planStartTime:
+          type: integer
+          format: int64
+          description: Plan to start time
+          minLength: 4
+        planEndTime:
+          type: integer
+          format: int64
+          description: Plan to end time
+          minLength: 4
+        actualStartTime:
+          type: integer
+          format: int64
+          description: Actual start time
+          minLength: 4
+        actualEndTime:
+          type: integer
+          format: int64
+          description: Actual end time
+          minLength: 4
+        estimatedTime:
+          type: integer
+          format: int64
+          description: Estimated Time to use in seconds
+        progress:
+          type: number
+          format: double
+          description: The task progress
         completed:
           type: boolean
           description: Completed flag
