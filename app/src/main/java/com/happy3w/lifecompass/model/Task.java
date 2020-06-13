@@ -22,6 +22,16 @@ public class Task {
     private Long id;
     private Long version;
 
+
+    @NotNull
+    @Size(min = 4)
+    private String title;
+
+    private Long parentId;
+    private Long priority;
+    private String detail;
+    private String status;
+
     private LocalDateTime created;
 
     @CreatedBy
@@ -32,10 +42,12 @@ public class Task {
     @LastModifiedBy
     private String modifyUser;
 
-    @NotNull
-    @Size(min = 4)
-    private String title;
-
     private boolean completed;
 
+    public static class Status {
+        public static final String NORMAL = "normal";
+        public static final String DELAY = "delay";
+        public static final String BLOCK = "block";
+
+    }
 }
