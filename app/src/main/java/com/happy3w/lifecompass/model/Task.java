@@ -1,6 +1,7 @@
 package com.happy3w.lifecompass.model;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -21,16 +22,24 @@ public class Task {
 
     private Long id;
     private Long version;
-
+    private Long parentId;
+    private boolean isParent;
 
     @NotNull
     @Size(min = 4)
     private String title;
-
-    private Long parentId;
-    private Long priority;
     private String detail;
     private String status;
+    private float progress;
+
+    private Long priority;
+    private Long estimatedTime;
+
+    private Date planStartTime;
+    private Date planEndTime;
+
+    private Date actualStartTime;
+    private Date actualEndTime;
 
     private LocalDateTime created;
 

@@ -5,16 +5,17 @@
             <column name="ID" type="BIGINT">
                 <constraints primaryKey="true" primaryKeyName="TASK_PK" nullable="false" />
             </column>
-            <column name="TITLE" type="VARCHAR(255 CHAR)">
-                <constraints nullable="false" />
-            </column>
             <column name="VERSION" type="BIGINT" defaultValueNumeric="0">
                 <constraints nullable="false" />
             </column>
             <column name="PARENT_ID" type="BIGINT" defaultValueNumeric="0">
                 <constraints nullable="true" />
             </column>
-            <column name="PRIORITY" type="INT" defaultValueNumeric="0">
+            <column name="IS_PARENT" type="VARCHAR(1 CHAR)" defaultValue="N">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="TITLE" type="VARCHAR(255 CHAR)">
                 <constraints nullable="false" />
             </column>
             <column name="DETAIL" type="VARCHAR(5000 CHAR)">
@@ -22,6 +23,16 @@
             </column>
             <column name="STATUS" type="VARCHAR(20 CHAR)">
                 <constraints nullable="false" />
+            </column>
+            <column name="PROGRESS" type="INT" defaultValueNumeric="0">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="PRIORITY" type="INT" defaultValueNumeric="0">
+                <constraints nullable="false" />
+            </column>
+            <column name="ESTIMATED_TIME" type="BIGINT">
+                <constraints nullable="true" />
             </column>
             <column name="PLAN_START_TIME" type="TIMESTAMP">
                 <constraints nullable="true" />
@@ -35,16 +46,7 @@
             <column name="ACTUAL_END_TIME" type="TIMESTAMP">
                 <constraints nullable="true" />
             </column>
-            <column name="ESTIMATED_TIME" type="BIGINT">
-                <constraints nullable="true" />
-            </column>
 
-            <column name="IS_PARENT" type="VARCHAR(1 CHAR)" defaultValue="N">
-                <constraints nullable="false" />
-            </column>
-            <column name="PROGRESS" type="INT" defaultValueNumeric="0">
-                <constraints nullable="false" />
-            </column>
 
             <column name="CREATED" type="TIMESTAMP" defaultValueComputed="current_timestamp">
                 <constraints nullable="false" />
