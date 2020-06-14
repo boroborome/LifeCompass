@@ -101,8 +101,8 @@
                         </execution>
                     </executions>
                     <configuration>
-                        <configLocation>${maven.multiModuleProjectDirectory}/etc/checkstyle-checker.xml</configLocation>
-                        <suppressionsLocation>${maven.multiModuleProjectDirectory}/etc/checkstyle-suppressions.xml</suppressionsLocation>
+                        <configLocation>${project.parent.basedir}/etc/checkstyle-checker.xml</configLocation>
+                        <suppressionsLocation>${project.parent.basedir}/etc/checkstyle-suppressions.xml</suppressionsLocation>
                         <violationSeverity>info</violationSeverity>
                         <logViolationsToConsole>true</logViolationsToConsole>
                         <includeTestSourceDirectory>true</includeTestSourceDirectory>
@@ -184,7 +184,7 @@
                     </executions>
                     <configuration>
                         <skip>${skipTests}</skip>
-                        <excludeFilterFile>${maven.multiModuleProjectDirectory}/etc/spotbugs-filter.xml</excludeFilterFile>
+                        <excludeFilterFile>${project.parent.basedir}/etc/spotbugs-filter.xml</excludeFilterFile>
                         <plugins>
                             <plugin>
                                 <groupId>com.h3xstream.findsecbugs</groupId>
@@ -212,7 +212,7 @@
                         </execution>
                     </executions>
                     <configuration>
-                        <inputSpec>${maven.multiModuleProjectDirectory}/app/src/main/resources/static/api-v1.yml</inputSpec>
+                        <inputSpec>${project.parent.basedir}/app/src/main/resources/static/api-v1.yml</inputSpec>
                     </configuration>
                 </plugin>
 
@@ -231,10 +231,10 @@
                     <configuration>
                         <java>
                             <importOrder>
-                                <file>${maven.multiModuleProjectDirectory}/etc/eclipse.importorder</file>
+                                <file>${project.parent.basedir}/etc/eclipse.importorder</file>
                             </importOrder>
                             <eclipse>
-                                <file>${maven.multiModuleProjectDirectory}/etc/eclipse-code-formatter.xml</file>
+                                <file>${project.parent.basedir}/etc/eclipse-code-formatter.xml</file>
                             </eclipse>
                             <endWithNewline />
                         </java>
