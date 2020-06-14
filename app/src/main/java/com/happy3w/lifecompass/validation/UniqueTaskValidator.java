@@ -1,14 +1,14 @@
 package com.happy3w.lifecompass.validation;
 
-import static com.happy3w.lifecompass.generated.Tables.TASK;
+import com.happy3w.lifecompass.model.Task;
+import com.happy3w.lifecompass.repository.TaskRepository;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import com.happy3w.lifecompass.api.generated.TaskDto;
-import com.happy3w.lifecompass.repository.TaskRepository;
+import static com.happy3w.lifecompass.generated.Tables.TASK;
 
-class UniqueTaskValidator implements ConstraintValidator<UniqueTask, TaskDto> {
+class UniqueTaskValidator implements ConstraintValidator<UniqueTask, Task> {
 
     private final TaskRepository taskRepository;
 
@@ -17,7 +17,7 @@ class UniqueTaskValidator implements ConstraintValidator<UniqueTask, TaskDto> {
     }
 
     @Override
-    public boolean isValid(TaskDto value, ConstraintValidatorContext context) {
+    public boolean isValid(Task value, ConstraintValidatorContext context) {
         return taskRepository.findAll(TASK.TITLE.equalIgnoreCase(value.getTitle())).isEmpty();
     }
 
