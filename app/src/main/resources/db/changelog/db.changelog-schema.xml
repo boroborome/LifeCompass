@@ -1,0 +1,8 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="003_change_schema" author="boroborome">
+        <dropNotNullConstraint tableName="TASK" columnName="DETAIL" columnDataType="VARCHAR(5000 CHAR)"/>
+        <dropNotNullConstraint tableName="TASK" columnName="STATUS" columnDataType="VARCHAR(20 CHAR)"/>
+    </changeSet>
+
+</databaseChangeLog>

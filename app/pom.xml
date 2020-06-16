@@ -110,6 +110,7 @@
                 </executions>
                 <configuration>
                     <changeLogFile>src/main/resources/db/changelog/db.changelog-master.xml</changeLogFile>
+                    <changeLogFile>src/main/resources/db/changelog/db.changelog-schema.xml</changeLogFile>
                     <driver>org.h2.Driver</driver>
                     <url>jdbc:h2:${project.build.directory}/jooq</url>
                     <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
