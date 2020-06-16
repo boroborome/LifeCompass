@@ -1,7 +1,5 @@
 package com.happy3w.auditing;
 
-import java.lang.reflect.Method;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.springframework.aop.Pointcut;
@@ -9,6 +7,8 @@ import org.springframework.aop.support.AbstractPointcutAdvisor;
 import org.springframework.aop.support.StaticMethodMatcherPointcut;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.data.auditing.AuditingHandler;
+
+import java.lang.reflect.Method;
 
 @SuppressWarnings("serial")
 class AuditingAdvisor extends AbstractPointcutAdvisor {
