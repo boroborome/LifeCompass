@@ -4,6 +4,8 @@ export { default as ButtonGroup } from "element-ui/lib/button-group";
 export { default as Col } from "element-ui/lib/col";
 export { default as MessageBox } from "element-ui/lib/message-box";
 export { default as Row } from "element-ui/lib/row";
+export { default as TabPane } from "element-ui/lib/tab-pane";
+export { default as Tabs } from "element-ui/lib/tabs";
 
 import locale from "element-ui/lib/locale";
 import de from "element-ui/lib/locale/lang/de";
