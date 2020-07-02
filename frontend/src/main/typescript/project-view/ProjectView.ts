@@ -1,15 +1,15 @@
 import Vue from "vue";
 import {Component} from "vue-property-decorator";
-import AutoComplete from "../demo/AutoComplete";
-import {Button, ButtonGroup, Col, Row} from "../elements";
+import {Button, ButtonGroup, Col, Option, Row, Select} from "../elements";
 
 @Component({
     components: {
-        AutoComplete,
         [Button.name]: Button,
         [ButtonGroup.name]: ButtonGroup,
         [Col.name]: Col,
         [Row.name]: Row,
+        [Option.name]: Option,
+        [Select.name]: Select,
     },
 })
 export default class ProjectView extends Vue {
