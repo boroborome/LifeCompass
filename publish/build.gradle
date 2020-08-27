@@ -1,0 +1,6 @@
+task build {
+
+}
+
+build.dependsOn project(':front-end').getTasksByName('build', false)
+build.dependsOn project(':back-end').getTasksByName('build', false)

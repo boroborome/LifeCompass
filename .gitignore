@@ -1,6 +1,6 @@
 
-# Created by https://www.toptal.com/developers/gitignore/api/java,maven,bluej,intellij+all,gradle
-# Edit at https://www.toptal.com/developers/gitignore?templates=java,maven,bluej,intellij+all,gradle
+# Created by https://www.toptal.com/developers/gitignore/api/java,maven,bluej,gradle,intellij+all,vuejs
+# Edit at https://www.toptal.com/developers/gitignore?templates=java,maven,bluej,gradle,intellij+all,vuejs
 
 ### bluej ###
 # BlueJ: A Java IDE for programming beginners. http://bluej.org
@@ -137,6 +137,14 @@ buildNumber.properties
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
 
+### Vuejs ###
+# Recommended template: Node.gitignore
+
+node_modules/
+dist/
+npm-debug.log
+yarn-error.log
+
 ### Gradle ###
 .gradle
 build/
@@ -156,4 +164,4 @@ gradle-app.setting
 ### Gradle Patch ###
 **/build/
 
-# End of https://www.toptal.com/developers/gitignore/api/java,maven,bluej,intellij+all,gradle
+# End of https://www.toptal.com/developers/gitignore/api/java,maven,bluej,gradle,intellij+all,vuejs
