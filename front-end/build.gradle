@@ -1,25 +1,15 @@
-plugins {
-    id "com.github.node-gradle.node" version "2.2.4"
-}
 
 //调用npm run build命令的Gradle任务
-task build(type: NpmTask, dependsOn: npmInstall) {
-    inputs.files(fileTree('config'))
-    inputs.files(fileTree('src'))
-    inputs.files(fileTree('static'))
-    inputs.files(fileTree('build'))
-    inputs.file('package.json')
-    inputs.file('package-lock.json')
-    inputs.file('index.html')
-
-    outputs.files(fileTree('dist'))
-
+task build {
     group = 'node'
-    args = ['run', 'build']
+    exec {
+        commandLine 'npm', 'run', 'build'
+    }
 }
 
-//调用npm run dev
-task npmDev(type: NpmTask, dependsOn: npmInstall) {
+task npmInstall {
     group = 'node'
-    args = ['run', 'dev']
+    exec {
+        commandLine 'npm', 'install'
+    }
 }

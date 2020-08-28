@@ -1,5 +1,21 @@
 task build {
+    def targetJar = 'life-compass.jar'
+    def sourceJar = 'back-end-0.0.1-SNAPSHOT.jar'
 
+    project.delete(targetJar)
+
+    project.copy {
+        from new File(project(':back-end').projectDir, 'build/libs/' + sourceJar)
+        into project.projectDir
+        rename sourceJar, targetJar
+    }
+
+    project.delete(project.file('web'))
+
+    project.copy {
+        from new File(project(':front-end').projectDir, 'dist')
+        into project.file('web')
+    }
 }
 
 build.dependsOn project(':front-end').getTasksByName('build', false)
