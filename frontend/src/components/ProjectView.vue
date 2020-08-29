@@ -1,6 +1,7 @@
 <template>
     <el-container>
-        <el-header>
+        <el-header height="auto">
+            <div>
             状态
             <el-select v-model="value" placeholder="请选择">
                 <el-option key='正常' label='正常' value='正常'></el-option>
@@ -14,6 +15,7 @@
                 <el-option key='无计划' label='无计划' value='无计划'></el-option>
                 <el-option key='不计划' label='不计划' value='不计划'></el-option>
             </el-select>
+            </div>
         </el-header>
         <el-container>
             <el-aside width="200px">
@@ -154,6 +156,14 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.el-header {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.el-header >div:first-child {
+    float: left;
+}
 .el-row {
     margin-bottom: 20px;
     &:last-child {
