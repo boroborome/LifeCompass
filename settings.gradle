@@ -1,5 +1,5 @@
 rootProject.name = 'lifecompass'
-include('front-end')
-include('back-end')
+include('frontend')
+include('backend')
 include('publish')
 
