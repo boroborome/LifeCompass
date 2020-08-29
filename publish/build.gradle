@@ -1,20 +1,22 @@
 task build {
-    def targetJar = 'life-compass.jar'
-    def sourceJar = 'back-end-0.0.1-SNAPSHOT.jar'
+    doLast {
+        def targetJar = 'life-compass.jar'
+        def sourceJar = 'back-end-0.0.1-SNAPSHOT.jar'
 
-    project.delete(targetJar)
+        project.delete(targetJar)
 
-    project.copy {
-        from new File(project(':back-end').projectDir, 'build/libs/' + sourceJar)
-        into project.projectDir
-        rename sourceJar, targetJar
-    }
+        project.copy {
+            from new File(project(':back-end').projectDir, 'build/libs/' + sourceJar)
+            into project.projectDir
+            rename sourceJar, targetJar
+        }
 
-    project.delete(project.file('web'))
+        project.delete(project.file('web'))
 
-    project.copy {
-        from new File(project(':front-end').projectDir, 'dist')
-        into project.file('web')
+        project.copy {
+            from new File(project(':front-end').projectDir, 'dist')
+            into project.file('web')
+        }
     }
 }
 
