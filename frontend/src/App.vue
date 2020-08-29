@@ -1,24 +1,11 @@
 <template>
-  <div id="app">
-    <el-tabs type="border-card">
-        <el-tab-pane>
-            <span slot="label"><i class="el-icon-ship"></i> 项目视图</span>
-            项目视图
-        </el-tab-pane>
-        <el-tab-pane>
-            <span slot="label"><i class="el-icon-date"></i> 日历视图</span>
-            日历视图
-        </el-tab-pane>
-        <el-tab-pane>
-            <span slot="label"><i class="el-icon-coin"></i> 历史视图</span>
-            历史视图
-        </el-tab-pane>
-        <el-tab-pane>
-            <span slot="label"><i class="el-icon-baseball"></i> Demo视图</span>
-        </el-tab-pane>
-    </el-tabs>
-
-    <router-view/>
+    <div id="app">
+        <el-menu class="el-menu-demo" mode="horizontal">
+            <el-menu-item index="1"><router-link to="/project-view"><i class="el-icon-ship"></i> 项目视图</router-link></el-menu-item>
+            <el-menu-item index="1"><router-link to="/date-view"><i class="el-icon-date"></i> 日历视图</router-link></el-menu-item>
+            <el-menu-item index="1"><router-link to="/history-view"><i class="el-icon-coin"></i> 历史视图</router-link></el-menu-item>
+        </el-menu>
+        <router-view/>
   </div>
 </template>
 
