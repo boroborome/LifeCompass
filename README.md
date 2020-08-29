@@ -21,3 +21,14 @@
 ```bash
 ./gradlew :publish:build
 ```
+
+## FAQ
+
+### Error: `gyp` failed with exit code: 1 gyp: binding.gyp not found
+Reinstall node-gys
+```bash
+npm uninstall node-gyp -g
+npm uninstall node-gyp
+npm install node-gyp -g 
+```
+
