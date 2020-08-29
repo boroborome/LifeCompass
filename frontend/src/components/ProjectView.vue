@@ -30,6 +30,13 @@
                       draggable
                       :allow-drop="allowDrop"
                       :allow-drag="allowDrag">
+                      <span class="custom-tree-node" slot-scope="{ node, data }">
+                              <span>{{ node.label }}</span>
+                              <span class="buttons">
+                                <i class="el-icon-document-add" @click="() => append(data)"></i>
+                                <i class="el-icon-document-delete" @click="() => remove(node, data)"></i>
+                              </span>
+                           </span>
                 </el-tree>
             </el-aside>
             <el-main>
@@ -99,6 +106,20 @@ export default {
       };
     },
     methods: {
+        append(data) {
+                const newChild = { id: id++, label: 'testtest', children: [] };
+                if (!data.children) {
+                  this.$set(data, 'children', []);
+                }
+                data.children.push(newChild);
+              },
+
+              remove(node, data) {
+                const parent = node.parent;
+                const children = parent.data.children || parent.data;
+                const index = children.findIndex(d => d.id === data.id);
+                children.splice(index, 1);
+              },
       handleDragStart(node, ev) {
         console.log('drag start', node);
       },
@@ -142,5 +163,20 @@ export default {
 .el-col {
     border-radius: 4px;
 }
+.custom-tree-node {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    padding-right: 8px;
+  }
 
+.buttons {
+    visibility:hidden;
+}
+
+.custom-tree-node:hover .buttons {
+    visibility:visible;
+}
 </style>
