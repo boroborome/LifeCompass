@@ -10,6 +10,13 @@ task build {
 task npmInstall {
     group = 'node'
     exec {
-        commandLine 'npm', 'install'
+        commandLine 'npm', '--registry', 'https://registry.npm.taobao.org', 'install'
+    }
+}
+
+task npmDebug {
+    group = 'node'
+    exec {
+        commandLine 'npm', 'run', 'dev'
     }
 }
