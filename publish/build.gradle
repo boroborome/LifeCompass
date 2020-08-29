@@ -2,6 +2,7 @@ task build {
     doLast {
         def targetJar = 'life-compass.jar'
         def sourceJar = 'back-end-0.0.1-SNAPSHOT.jar'
+        def staticFileDir = 'public'
 
         project.delete(targetJar)
 
@@ -11,11 +12,11 @@ task build {
             rename sourceJar, targetJar
         }
 
-        project.delete(project.file('web'))
+        project.delete(project.file(staticFileDir))
 
         project.copy {
             from new File(project(':front-end').projectDir, 'dist')
-            into project.file('web')
+            into project.file(staticFileDir)
         }
     }
 }
