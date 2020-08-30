@@ -2,16 +2,16 @@
 
 ## Requirement
 - JDK 1.8
-- node.js >= 6
+- node.js >= 10
 
 ## Structure
 
 - backend
 
-  The backend project is based Springboot
+  The backend project is based on Springboot
 - frontend
   
-  The frontend project is based vue 
+  The frontend project is based on vue 
 - publish
    
   The publish project is used to organize backend and frontend together. You can run start.sh to start this project simply.
