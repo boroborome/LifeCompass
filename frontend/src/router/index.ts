@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import Home from '../views/Home.vue'
-import ProjectView from '@/components/ProjectView.vue'
+import ProjectView from '@/views/ProjectView.vue'
 import HelloWorld from '@/components/HelloWorld.vue'
 
 Vue.use(VueRouter)

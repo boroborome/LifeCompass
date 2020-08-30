@@ -1,5 +1,5 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import TaskEditPane from './TaskEditPane.vue'
+import TaskEditPane from '../components/TaskEditPane.vue'
 
 class TreeNode {
     id?: number;
