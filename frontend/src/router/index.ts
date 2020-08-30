@@ -1,8 +1,7 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import Home from '../views/Home.vue'
 import ProjectView from '@/views/ProjectView.vue'
-import HelloWorld from '@/components/HelloWorld.vue'
+import About from '@/views/About.vue'
 
 Vue.use(VueRouter)
 
@@ -18,11 +17,11 @@ Vue.use(VueRouter)
   }, {
       path: '/date-view',
       name: 'Date View',
-      component: HelloWorld
+      component: About
   }, {
       path: '/history-view',
       name: 'History View',
-      component: HelloWorld
+      component: About
   },  {
     path: '/about',
     name: 'About',
