@@ -1,10 +1,9 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import TaskEditPane from '../components/TaskEditPane.vue'
+import {LcTask, LcTaskStatus} from "@/model/LcTask";
 
-class TreeNode {
-    id?: number;
+class TreeNode extends LcTask{
     label?: string;
-    parent?: TreeNode;
     children?: Array<TreeNode>;
 }
 
@@ -14,52 +13,50 @@ class TreeNode {
     },
 })
 export default class ProjectView extends Vue {
-    @Prop() private msg!: string;
     private value = '';
-    data = [
+    tasks: TreeNode[] = [
         {
             id: 1,
-            label: '一级 1',
+            parentId: 0,
+            label: '学习',
+            name: '学习',
+            description: '好好学习天天向上',
+            priority: 10,
+            status: LcTaskStatus.Normal.code,
             children: [{
-                id: 4,
-                label: '二级 1-1',
-                children: [{
-                    id: 9,
-                    label: '三级 1-1-1'
-                }, {
-                    id: 10,
-                    label: '三级 1-1-2'
-                }]
-            }]
-        }, {
-            id: 2,
-            label: '一级 2',
-            children: [{
-                id: 5,
-                label: '二级 2-1'
+                id: 2,
+                parentId: 1,
+                name: '学习语文',
+                description: '好好学习天天向上',
+                priority: 10,
+                status: LcTaskStatus.Normal.code,
             }, {
-                id: 6,
-                label: '二级 2-2'
+                id: 3,
+                parentId: 1,
+                name: '学习数学',
+                description: '好好学习天天向上',
+                priority: 10,
+                status: LcTaskStatus.Normal.code,
             }]
-        }, {
-            id: 3,
-            label: '一级 3',
+        },         {
+            id: 10,
+            parentId: 0,
+            name: '游戏',
+            description: '放松一下',
+            priority: 0,
+            status: LcTaskStatus.Normal.code,
             children: [{
-                id: 7,
-                label: '二级 3-1'
+                id: 12,
+                parentId: 10,
+                name: '扫雷',
+                priority: 10,
+                status: LcTaskStatus.Normal.code,
             }, {
-                id: 8,
-                label: '二级 3-2',
-                children: [{
-                    id: 11,
-                    label: '三级 3-2-1'
-                }, {
-                    id: 12,
-                    label: '三级 3-2-2'
-                }, {
-                    id: 13,
-                    label: '三级 3-2-3'
-                }]
+                id: 13,
+                parentId: 10,
+                name: '贪吃蛇',
+                priority: 10,
+                status: LcTaskStatus.Normal.code,
             }]
         }
     ];
@@ -70,6 +67,7 @@ export default class ProjectView extends Vue {
 
     private nextId = 0;
     append(data: TreeNode) {
+        console.log(data);
         // const newChild = { id: this.nextId++, label: 'testtest', children: [] };
         // if (!data.children) {
         //   this.$set(data, 'children', []);
@@ -78,6 +76,8 @@ export default class ProjectView extends Vue {
     }
 
     remove(node: TreeNode, data: TreeNode) {
+        console.log(node);
+        console.log(data);
         // const parent = node.parent;
         // const children = parent.data.children || parent.data;
         // const index = children.findIndex(d => d.id === data.id);

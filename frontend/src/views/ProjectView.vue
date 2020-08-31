@@ -18,7 +18,7 @@
     <el-container>
       <el-aside width="200px">
         <el-tree
-          :data="data"
+          :data="tasks"
           node-key="id"
           default-expand-all
           @node-drag-start="handleDragStart"
@@ -32,7 +32,7 @@
           :allow-drag="allowDrag"
         >
           <span class="custom-tree-node" slot-scope="{ node, data }">
-            <span>{{ node.label }}</span>
+            <span>{{ data.name }}</span>
             <span class="buttons">
               <i class="el-icon-document-add" @click="() => append(data)"></i>
               <i class="el-icon-document-delete" @click="() => remove(node, data)"></i>

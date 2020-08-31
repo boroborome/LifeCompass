@@ -9,9 +9,9 @@ export class EnumItem {
         this.remark = remark;
     }
 
-    static findEnum(items: EnumItem[], code?: string) : EnumItem | null {
-        for (var index = items.length - 1; index >= 0; index--) {
-            let item: EnumItem = items[index];
+    static findEnum(items: EnumItem[], code?: string): EnumItem | null {
+        for (let index = items.length - 1; index >= 0; index--) {
+            const item: EnumItem = items[index];
             if (item.code == code) {
                 return item;
             }
