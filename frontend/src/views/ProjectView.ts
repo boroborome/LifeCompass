@@ -61,21 +61,20 @@ export default class ProjectView extends Vue {
             }]
         }
     ];
-    defaultProps = {
-        children: 'children',
-        label: 'label'
-    };
 
     private nextId = 0;
     append(data: TreeNode) {
         const newChild: TreeNode = { id: this.nextId++, name: 'testtest', children: [] };
         if (!data.children) {
-            // data.children = []
             this.$set(data, 'children', []);
         }
 
         if (data.children) {
             data.children.push(newChild);
+            const taskTree: any = this.$refs.taskTree;
+            this.$nextTick(function() {
+                taskTree.setCurrentKey(newChild.id);
+            });
         }
     }
 
@@ -105,14 +104,8 @@ export default class ProjectView extends Vue {
     }
     allowDrop(draggingNode: Record<string, any>, dropNode: Record<string, any>, type: Record<string, any>) {
         return true;
-        // if (dropNode.data.label === '二级 3-1') {
-        //   return type !== 'inner';
-        // } else {
-        //   return true;
-        // }
     }
     allowDrag(draggingNode: Record<string, any>) {
         return true;
-        // return draggingNode.data.label.indexOf('三级 3-2-2') === -1;
     }
 }
