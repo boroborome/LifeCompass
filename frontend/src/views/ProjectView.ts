@@ -1,6 +1,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import TaskEditPane from '../components/TaskEditPane.vue'
 import {LcTask, LcTaskStatus} from "@/model/LcTask";
+import {Tree} from "element-ui";
 
 class TreeNode extends LcTask{
     label?: string;
@@ -67,21 +68,22 @@ export default class ProjectView extends Vue {
 
     private nextId = 0;
     append(data: TreeNode) {
-        console.log(data);
-        // const newChild = { id: this.nextId++, label: 'testtest', children: [] };
-        // if (!data.children) {
-        //   this.$set(data, 'children', []);
-        // }
-        // data.children.push(newChild);
+        const newChild: TreeNode = { id: this.nextId++, name: 'testtest', children: [] };
+        if (!data.children) {
+            // data.children = []
+            this.$set(data, 'children', []);
+        }
+
+        if (data.children) {
+            data.children.push(newChild);
+        }
     }
 
-    remove(node: TreeNode, data: TreeNode) {
-        console.log(node);
-        console.log(data);
-        // const parent = node.parent;
-        // const children = parent.data.children || parent.data;
-        // const index = children.findIndex(d => d.id === data.id);
-        // children.splice(index, 1);
+    remove(node: Record<string, any>, data: TreeNode) {
+        const parent = node.parent;
+        const children = parent.data.children || parent.data;
+        const index = children.findIndex((d: TreeNode) => d.id === data.id);
+        children.splice(index, 1);
     }
     handleDragStart(node: Record<string, any>, ev: Record<string, any>) {
         console.log('drag start', node);
@@ -102,6 +104,7 @@ export default class ProjectView extends Vue {
         // console.log('tree drop: ', dropNode.label, dropType);
     }
     allowDrop(draggingNode: Record<string, any>, dropNode: Record<string, any>, type: Record<string, any>) {
+        return true;
         // if (dropNode.data.label === '二级 3-1') {
         //   return type !== 'inner';
         // } else {
@@ -109,6 +112,7 @@ export default class ProjectView extends Vue {
         // }
     }
     allowDrag(draggingNode: Record<string, any>) {
+        return true;
         // return draggingNode.data.label.indexOf('三级 3-2-2') === -1;
     }
 }
