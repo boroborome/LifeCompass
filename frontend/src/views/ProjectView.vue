@@ -23,6 +23,7 @@
           node-key="id"
           :highlight-current=true
           default-expand-all
+          @current-change="taskChanged"
           @node-drag-start="handleDragStart"
           @node-drag-enter="handleDragEnter"
           @node-drag-leave="handleDragLeave"
@@ -34,7 +35,7 @@
           :allow-drag="allowDrag"
         >
           <span class="custom-tree-node" slot-scope="{ node, data }">
-            <span>{{ data.name }}</span>
+            <span>{{ data.task.name }}</span>
             <span class="buttons">
               <i class="el-icon-document-add" @click.stop="() => append(data)"></i>
               <i class="el-icon-document-delete" @click.stop="() => remove(node, data)"></i>
@@ -43,7 +44,7 @@
         </el-tree>
       </el-aside>
       <el-main>
-        <task-edit-pane></task-edit-pane>
+        <task-edit-pane ref="taskDetailPane" :model="currentTask"></task-edit-pane>
       </el-main>
     </el-container>
   </el-container>
