@@ -1,13 +1,13 @@
 <template>
-    <el-form ref="form" :model="form" label-width="80px">
+    <el-form ref="taskForm" :model="task" label-width="80px">
       <el-form-item label="名称">
-        <el-input v-model="form.name"></el-input>
+        <el-input v-model="task.name"></el-input>
       </el-form-item>
       <el-form-item label="描述">
-        <el-input v-model="form.name"></el-input>
+        <el-input v-model="task.description"></el-input>
       </el-form-item>
       <el-form-item label="状态">
-        <el-select v-model="form.description">
+        <el-select v-model="task.status">
           <el-option label="正常" value="normal"></el-option>
           <el-option label="阻塞" value="block"></el-option>
           <el-option label="完成" value="finish"></el-option>
@@ -15,24 +15,28 @@
       </el-form-item>
       <el-form-item label="计划时间">
         <el-col :span="11" class="time-block">
-          <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 50%;"></el-date-picker>
-          <el-time-picker placeholder="选择时间" v-model="form.date2" style="width: 50%;"></el-time-picker>
+          <el-date-picker type="datetime" placeholder="选择日期" v-model="task.planStartTime"
+            value-format="timestamp"
+            style="width: 100%;">
+          </el-date-picker>
         </el-col>
         <el-col class="line" :span="2">-</el-col>
         <el-col :span="11" class="time-block">
-                <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 50%;"></el-date-picker>
-                <el-time-picker placeholder="选择时间" v-model="form.date2" style="width: 50%;"></el-time-picker>
+            <el-date-picker type="datetime" placeholder="选择日期" v-model="task.planEndTime"
+                value-format="timestamp"
+                style="width: 100%;">
+             </el-date-picker>
         </el-col>
       </el-form-item>
             <el-form-item label="优先级">
-              <el-radio-group v-model="form.resource">
+              <el-radio-group v-model="task.priority">
                 <el-radio label="高"></el-radio>
                 <el-radio label="中"></el-radio>
                 <el-radio label="低"></el-radio>
               </el-radio-group>
             </el-form-item>
       <el-form-item label="备注">
-        <el-input type="textarea" v-model="form.desc"></el-input>
+        <el-input type="textarea" v-model="task.remark"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">应用</el-button>

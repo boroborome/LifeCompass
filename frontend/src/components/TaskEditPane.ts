@@ -1,18 +1,11 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import {LcTask} from "@/model/LcTask";
 
 @Component
 export default class TaskEditPane extends Vue {
-    form = {
-        name: '',
-        region: '',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
-    };
+    task: LcTask = {};
+
     onSubmit() {
-        console.log('submit!');
+        console.log(this.task);
     }
 }
