@@ -10,7 +10,7 @@ public class EnumItemTest {
 
     @Test
     public void from() {
-        List<IEnumItem> items = EnumItem.from(TestEnum.class);
+        List<EnumItem> items = EnumItem.from(TestEnum.class);
         Assert.assertEquals(3, items.size());
     }
 

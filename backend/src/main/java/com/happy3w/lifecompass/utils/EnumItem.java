@@ -22,14 +22,21 @@ public class EnumItem {
     private String name;
     private String remark;
 
-    public static List<IEnumItem> from(Class<? extends Enum> enumType) {
+    public EnumItem(IEnumItem enumItem) {
+        this.code = enumItem.getCode();
+        this.name = enumItem.getName();
+        this.remark = enumItem.getRemark();
+    }
+
+    public static List<EnumItem> from(Class<? extends Enum> enumType) {
         try {
-            List<IEnumItem> values = new ArrayList<>();
+            List<EnumItem> values = new ArrayList<>();
 
             Object valueArray = enumType.getDeclaredMethod("values").invoke(null);
             for (int i = 0, size = Array.getLength(valueArray); i < size; i++) {
                 Object value = Array.get(valueArray, i);
-                values.add((IEnumItem) value);
+                EnumItem enumItem = new EnumItem((IEnumItem) value);
+                values.add(enumItem);
             }
             return values;
         } catch (Exception e) {
