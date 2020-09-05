@@ -1,0 +1,20 @@
+filterAndContentPane {
+    flex-direction: column;
+}
+filterPane {
+    flex-direction: row;
+    flex-grow: 0;
+}
+
+contentPane {
+    flex-direction: row;
+    flex-grow: 1;
+}
+
+taskTree {
+    flex-grow: 0;
+}
+
+taskDetail {
+    flex-grow: 1;
+}
