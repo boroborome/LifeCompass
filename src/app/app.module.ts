@@ -8,16 +8,20 @@ import { MatSliderModule } from '@angular/material/slider';
 import {MatTabsModule} from '@angular/material/tabs';
 import { MatTreeModule } from '@angular/material/tree';
 import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
+
 import { ProjectViewComponent } from './views/project-view/project-view.component';
 import { DateViewComponent } from './views/date-view/date-view.component';
 import { HistoryViewComponent } from './views/history-view/history-view.component';
+import { TaskEditPaneComponent } from './components/task-edit-pane/task-edit-pane.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProjectViewComponent,
     DateViewComponent,
-    HistoryViewComponent
+    HistoryViewComponent,
+    TaskEditPaneComponent
   ],
   imports: [
     BrowserModule,
@@ -26,6 +30,7 @@ import { HistoryViewComponent } from './views/history-view/history-view.componen
     MatTabsModule,
     MatTreeModule,
     MatIconModule,
+    MatInputModule,
     BrowserAnimationsModule
   ],
   providers: [],
