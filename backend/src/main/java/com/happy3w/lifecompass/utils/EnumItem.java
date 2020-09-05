@@ -17,7 +17,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class EnumItem {
+public class EnumItem implements IEnumItem {
     private String code;
     private String name;
     private String remark;
