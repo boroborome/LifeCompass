@@ -32,3 +32,8 @@ npm uninstall node-gyp
 npm install node-gyp -g 
 ```
 
+### Error: gyp: No Xcode or CLT version detected!
+```bash
+sudo rm -rf $(xcode-select -print-path)
+xcode-select --install
+```
