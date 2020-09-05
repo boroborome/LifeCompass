@@ -1,5 +1,6 @@
 package com.happy3w.lifecompass.controller;
 
+import com.happy3w.lifecompass.model.PlanStatus;
 import com.happy3w.lifecompass.model.TaskStatus;
 import com.happy3w.lifecompass.utils.EnumItem;
 import org.springframework.stereotype.Controller;
@@ -16,5 +17,11 @@ public class MasterController {
     @RequestMapping(value = "task-status", method = RequestMethod.GET)
     public List<EnumItem> queryAllTaskStatus() {
         return EnumItem.from(TaskStatus.class);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "plan-status", method = RequestMethod.GET)
+    public List<EnumItem> queryAllPlanStatus() {
+        return EnumItem.from(PlanStatus.class);
     }
 }
