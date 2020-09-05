@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatSliderModule } from '@angular/material/slider';
 import {MatTabsModule} from '@angular/material/tabs';
 import { MatTreeModule } from '@angular/material/tree';
@@ -26,6 +27,7 @@ import { TaskEditPaneComponent } from './components/task-edit-pane/task-edit-pan
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FlexLayoutModule,
     MatSliderModule,
     MatTabsModule,
     MatTreeModule,
