@@ -44,7 +44,7 @@
         </el-tree>
       </el-aside>
       <el-main>
-        <task-edit-pane ref="taskDetailPane" :model="currentTask"></task-edit-pane>
+        <task-edit-pane ref="taskDetailPane"></task-edit-pane>
       </el-main>
     </el-container>
   </el-container>
