@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
 import {MatTabsModule} from '@angular/material/tabs';
+import { MatTreeModule } from '@angular/material/tree';
+import {MatIconModule} from '@angular/material/icon';
 import { ProjectViewComponent } from './views/project-view/project-view.component';
 import { DateViewComponent } from './views/date-view/date-view.component';
 import { HistoryViewComponent } from './views/history-view/history-view.component';
@@ -22,6 +24,8 @@ import { HistoryViewComponent } from './views/history-view/history-view.componen
     AppRoutingModule,
     MatSliderModule,
     MatTabsModule,
+    MatTreeModule,
+    MatIconModule,
     BrowserAnimationsModule
   ],
   providers: [],
