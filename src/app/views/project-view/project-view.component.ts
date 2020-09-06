@@ -1,7 +1,9 @@
 import { Component, OnInit, Injectable } from '@angular/core';
-import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
-import {BehaviorSubject, Observable} from 'rxjs';
+import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { FlatTreeControl } from '@angular/cdk/tree';
+import { MasterService } from 'src/app/services/master.service';
+import { EnumItem } from 'src/app/utils/enum-item';
 
 const LOAD_MORE = 'LOAD_MORE';
 
@@ -14,16 +16,16 @@ export class LoadmoreNode {
   }
 
   constructor(public item: string,
-              public hasChildren = false,
-              public loadMoreParentItem: string | null = null) {}
+    public hasChildren = false,
+    public loadMoreParentItem: string | null = null) { }
 }
 
 /** Flat node with expandable and level information */
 export class LoadmoreFlatNode {
   constructor(public item: string,
-              public level = 1,
-              public expandable = false,
-              public loadMoreParentItem: string | null = null) {}
+    public level = 1,
+    public expandable = false,
+    public loadMoreParentItem: string | null = null) { }
 }
 
 @Injectable()
@@ -87,14 +89,18 @@ export class LoadmoreDatabase {
   styleUrls: ['./project-view.component.scss'],
   providers: [LoadmoreDatabase]
 })
-export class ProjectViewComponent {
+export class ProjectViewComponent implements OnInit {
+  taskStatusRange: EnumItem[] = [];
   nodeMap = new Map<string, LoadmoreFlatNode>();
   treeControl: FlatTreeControl<LoadmoreFlatNode>;
   treeFlattener: MatTreeFlattener<LoadmoreNode, LoadmoreFlatNode>;
   // Flat tree data source
   dataSource: MatTreeFlatDataSource<LoadmoreNode, LoadmoreFlatNode>;
 
-  constructor(private taskDatabase: LoadmoreDatabase) {
+  constructor(
+    private taskDatabase: LoadmoreDatabase,
+    private masterService: MasterService,
+  ) {
     this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel,
       this.isExpandable, this.getChildren);
 
@@ -108,6 +114,10 @@ export class ProjectViewComponent {
 
     taskDatabase.initialize();
   }
+  ngOnInit(): void {
+    this.masterService.getTaskStatus()
+      .subscribe((data: EnumItem[]) => this.taskStatusRange = data);
+  }
 
   getChildren = (node: LoadmoreNode): Observable<LoadmoreNode[]> => node.childrenChange;
 
@@ -119,7 +129,7 @@ export class ProjectViewComponent {
     }
 
     const newNode =
-        new LoadmoreFlatNode(node.item, level, node.hasChildren, node.loadMoreParentItem);
+      new LoadmoreFlatNode(node.item, level, node.hasChildren, node.loadMoreParentItem);
     this.nodeMap.set(node.item, newNode);
     return newNode;
   }
