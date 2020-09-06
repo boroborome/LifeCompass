@@ -27,3 +27,4 @@ task npmDebug {
         }
     }
 }
+build.dependsOn npmInstall
