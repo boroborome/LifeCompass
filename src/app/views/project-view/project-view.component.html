@@ -1,8 +1,14 @@
 <div fxLayout='column'>
     <div>
-      <span class="material-icons">
-        3d_rotation
-        </span><mat-icon>tv</mat-icon>filter
+      过滤条件：
+      <mat-form-field appearance="fill">
+        <mat-label>Task Status</mat-label>
+        <mat-select>
+            <mat-option value="normal">Normal</mat-option>
+            <mat-option value="block">Block</mat-option>
+            <mat-option value="finish">Finish</mat-option>
+        </mat-select>
+    </mat-form-field>
     </div>
     <div fxLayout='row' fxLayoutGap='10px'>
         <mat-tree fxFlex='20' [dataSource]="dataSource" [treeControl]="treeControl">
