@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
-@RequestMapping("/master")
+@RequestMapping("${life-compass.service-path}/master")
 public class MasterController {
     @ResponseBody
     @RequestMapping(value = "task-status", method = RequestMethod.GET)
