@@ -1,0 +1,7 @@
+.node-button {
+    visibility: hidden;
+  }
+  
+  .task-tree-node:hover .node-button {
+    visibility: visible;
+  }

@@ -1,0 +1,44 @@
+<div fxLayout='column'>
+    <div>
+      过滤条件：
+      <mat-form-field appearance="fill">
+        <mat-label>Task Status</mat-label>
+        <mat-select>
+            <mat-option *ngFor="let taskStatusItem of taskStatusRange" [value]="taskStatusItem.code">{{taskStatusItem.name}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    </div>
+    <div fxLayout='row' fxLayoutGap='10px'>
+        <mat-tree fxFlex='20' [dataSource]="dataSource" [treeControl]="treeControl">
+            <!-- Leaf node -->
+            <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding fxLayout='row' fxLayoutAlign="end center" class='task-tree-node'>
+              <button mat-icon-button disabled></button>
+              <div fxFlex>{{node.item}}</div>
+              <mat-icon class='node-button'>add</mat-icon>
+              <mat-icon class='node-button'>clear</mat-icon>
+            </mat-tree-node>
+          
+            <!-- expandable node -->
+            <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding fxLayout='row' fxLayoutAlign="end center" class='task-tree-node'>
+              <button mat-icon-button
+                      [attr.aria-label]="'Toggle ' + node.item"
+                      (click)="loadChildren(node)"
+                      matTreeNodeToggle>
+                <mat-icon class="mat-icon-rtl-mirror">
+                  {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                </mat-icon>
+              </button>
+              <div fxFlex>{{node.item}}</div>
+              <mat-icon class='node-button'>add</mat-icon>
+              <mat-icon class='node-button'>clear</mat-icon>
+            </mat-tree-node>
+          
+            <mat-tree-node *matTreeNodeDef="let node; when: isLoadMore">
+              <button mat-button (click)="loadMore(node.loadMoreParentItem)">
+                Load more...
+              </button>
+            </mat-tree-node>
+          </mat-tree>
+          <app-task-edit-pane fxFlex></app-task-edit-pane>
+    </div>
+</div>
