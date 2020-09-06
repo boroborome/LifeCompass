@@ -16,6 +16,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatButtonModule } from '@angular/material/button';
 
+import { ServicesModule } from './services/services.module';
+
 import { ProjectViewComponent } from './views/project-view/project-view.component';
 import { DateViewComponent } from './views/date-view/date-view.component';
 import { HistoryViewComponent } from './views/history-view/history-view.component';
@@ -43,7 +45,9 @@ import { TaskEditPaneComponent } from './components/task-edit-pane/task-edit-pan
     MatButtonModule,
     MatMomentDateModule,
     MatRadioModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+
+    ServicesModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
