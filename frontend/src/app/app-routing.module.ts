@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ProjectViewComponent } from './views/project-view/project-view.component';
 import { DateViewComponent } from './views/date-view/date-view.component';
 import { HistoryViewComponent } from './views/history-view/history-view.component';
+// import {HashLocationStrategy, LocationStrategy} from "@angular/common";
 
 const routes: Routes = [
   {
@@ -19,6 +20,9 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [
+    // { provide: LocationStrategy, useClass: HashLocationStrategy }
+  ]
 })
 export class AppRoutingModule { }
