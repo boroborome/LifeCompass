@@ -1,8 +1,10 @@
 task build {
+
+}
+task updateBackend() {
     doLast {
         def targetJar = 'life-compass.jar'
         def sourceJar = 'backend-0.0.1-SNAPSHOT.jar'
-        def staticFileDir = 'public'
 
         project.delete(targetJar)
 
@@ -11,7 +13,11 @@ task build {
             into project.projectDir
             rename sourceJar, targetJar
         }
-
+    }
+}
+task updateFrontend {
+    doLast {
+        def staticFileDir = 'public'
         project.delete(project.file(staticFileDir))
 
         project.copy {
@@ -21,5 +27,7 @@ task build {
     }
 }
 
-build.dependsOn project(':frontend').getTasksByName('build', false)
-build.dependsOn project(':backend').getTasksByName('build', false)
+build.dependsOn updateBackend
+build.dependsOn updateFrontend
+updateFrontend.dependsOn project(':frontend').getTasksByName('build', false)
+updateBackend.dependsOn project(':backend').getTasksByName('build', false)
