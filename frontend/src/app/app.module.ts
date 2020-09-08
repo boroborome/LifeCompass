@@ -23,6 +23,7 @@ import { ProjectViewComponent } from './views/project-view/project-view.componen
 import { DateViewComponent } from './views/date-view/date-view.component';
 import { HistoryViewComponent } from './views/history-view/history-view.component';
 import { TaskEditPaneComponent } from './components/task-edit-pane/task-edit-pane.component';
+import { TaskTreeComponent } from './components/task-tree/task-tree.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { TaskEditPaneComponent } from './components/task-edit-pane/task-edit-pan
     ProjectViewComponent,
     DateViewComponent,
     HistoryViewComponent,
-    TaskEditPaneComponent
+    TaskEditPaneComponent,
+    TaskTreeComponent
   ],
   imports: [
     BrowserModule,
