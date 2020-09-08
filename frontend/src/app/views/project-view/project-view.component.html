@@ -1,15 +1,16 @@
 <div fxLayout='column'>
-    <div>
-      过滤条件：
-      <mat-form-field appearance="fill">
-        <mat-label>Task Status</mat-label>
-        <mat-select>
-            <mat-option *ngFor="let taskStatusItem of taskStatusRange" [value]="taskStatusItem.code">{{taskStatusItem.name}}</mat-option>
-        </mat-select>
+  <div>
+    过滤条件：
+    <mat-form-field appearance="fill">
+      <mat-label>Task Status</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let taskStatusItem of taskStatusRange"
+                    [value]="taskStatusItem.code">{{taskStatusItem.name}}</mat-option>
+      </mat-select>
     </mat-form-field>
-    </div>
-    <div fxLayout='row' fxLayoutGap='10px'>
-        <app-task-tree></app-task-tree>
-        <app-task-edit-pane fxFlex></app-task-edit-pane>
-    </div>
+  </div>
+  <div fxLayout='row' fxLayoutGap='10px'>
+    <app-task-tree></app-task-tree>
+    <app-task-edit-pane fxFlex></app-task-edit-pane>
+  </div>
 </div>
