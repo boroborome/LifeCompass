@@ -10,7 +10,13 @@
     </mat-form-field>
   </div>
   <div fxLayout='row' fxLayoutGap='10px'>
-    <app-task-tree></app-task-tree>
+    <div fxLayout="column">
+      <div fxLayout="row">
+        <mat-icon>add</mat-icon>
+        <mat-icon>toys</mat-icon>
+      </div>
+      <app-task-tree></app-task-tree>
+    </div>
     <app-task-edit-pane fxFlex></app-task-edit-pane>
   </div>
 </div>
