@@ -36,8 +36,7 @@ public class LcTaskController {
 
     @ResponseBody
     @PostMapping
-    public LcTask createRootTask() {
-        LcTask newTask = new LcTask();
+    public LcTask createRootTask(@RequestBody LcTask newTask) {
         newTask.setParentId(LcTask.ROOT_PARENT_ID);
         return lcTaskRepository.save(newTask);
     }

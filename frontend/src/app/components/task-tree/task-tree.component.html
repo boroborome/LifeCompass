@@ -2,7 +2,7 @@
   <!-- Leaf node -->
   <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding fxLayout='row' fxLayoutAlign="end center" class='task-tree-node'>
     <button mat-icon-button disabled></button>
-    <div fxFlex>{{node.item}}</div>
+    <div fxFlex>{{node.task.name}}</div>
     <mat-icon class='node-button'>add</mat-icon>
     <mat-icon class='node-button'>clear</mat-icon>
   </mat-tree-node>
@@ -17,7 +17,7 @@
         {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
       </mat-icon>
     </button>
-    <div fxFlex>{{node.item}}</div>
+    <div fxFlex>{{node.task.name}}</div>
     <mat-icon class='node-button'>add</mat-icon>
     <mat-icon class='node-button'>clear</mat-icon>
   </mat-tree-node>
