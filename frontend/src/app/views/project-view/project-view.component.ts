@@ -1,6 +1,6 @@
-import { Component, OnInit, Injectable } from '@angular/core';
-import { MasterService } from 'src/app/services/master.service';
-import { EnumItem } from 'src/app/utils/enum-item';
+import {Component, OnInit} from '@angular/core';
+import {MasterService} from 'src/app/services/master.service';
+import {EnumItem} from 'src/app/utils/enum-item';
 
 @Component({
   selector: 'app-project-view',
@@ -16,5 +16,9 @@ export class ProjectViewComponent implements OnInit {
   ngOnInit(): void {
     this.masterService.getTaskStatus()
       .subscribe((data: EnumItem[]) => this.taskStatusRange = data);
+  }
+
+  refreshTaskList() {
+
   }
 }

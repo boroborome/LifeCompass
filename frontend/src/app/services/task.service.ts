@@ -30,4 +30,11 @@ export class TaskService {
     // @ts-ignore
     return this.http.get(this.url(`${id}/sub-task`));
   }
+
+  createRootTask(newTask: LcTask): Observable<LcTask> {
+    // @ts-ignore
+    return this.http.post(
+      this.url(''),
+      newTask);
+  }
 }
