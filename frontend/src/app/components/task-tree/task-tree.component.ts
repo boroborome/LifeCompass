@@ -28,6 +28,8 @@ export class TaskNode {
   styleUrls: ['./task-tree.component.scss'],
 })
 export class TaskTreeComponent implements OnInit {
+
+  taskListChange = new BehaviorSubject<TaskNode[]>([]);
   treeControl: FlatTreeControl<TaskNode>;
   treeFlattener: MatTreeFlattener<TaskNode, TaskNode>;
   // Flat tree data source
@@ -42,6 +44,11 @@ export class TaskTreeComponent implements OnInit {
     this.treeControl = new FlatTreeControl<TaskNode>(this.getLevel, this.isExpandable);
 
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+
+    this.taskListChange.subscribe(data => {
+      this.dataSource.data = data;
+    });
+
   }
 
   ngOnInit(): void {
@@ -72,10 +79,7 @@ export class TaskTreeComponent implements OnInit {
   loadChildren(node: TaskNode) {
     this.loadMoreData(node);
   }
-
   // ---
-
-  dataChange = new BehaviorSubject<TaskNode[]>([]);
 
   /** Expand a node whose children are not loaded */
   // tslint:disable-next-line: typedef
@@ -85,7 +89,7 @@ export class TaskTreeComponent implements OnInit {
         const subTasks: TaskNode[] = data.map(task =>
           new TaskNode(task, false, task.parentId, 1, false));
         taskNode.childrenChange.next(subTasks);
-        this.dataChange.next(this.dataChange.value);
+        this.taskListChange.next(this.taskListChange.value);
       });
   }
 }
