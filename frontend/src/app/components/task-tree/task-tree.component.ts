@@ -19,7 +19,8 @@ export class TaskNode {
               public hasChildren = false,
               public parentId: number | null = null,
               public level = 1,
-              public expandable = false) { }
+              public expandable = false) {
+  }
 }
 
 @Component({
@@ -53,8 +54,10 @@ export class TaskTreeComponent implements OnInit {
 
   ngOnInit(): void {
     this.taskService.queryRootTasks().subscribe(data => {
-      this.dataSource.data = data.map(task =>
+      const taskList: TaskNode[] = data.map(task =>
         new TaskNode(task, false, task.parentId, 1, false));
+
+      this.taskListChange.next(taskList);
     });
   }
 
@@ -79,6 +82,7 @@ export class TaskTreeComponent implements OnInit {
   loadChildren(node: TaskNode) {
     this.loadMoreData(node);
   }
+
   // ---
 
   /** Expand a node whose children are not loaded */
