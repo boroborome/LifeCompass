@@ -22,7 +22,7 @@ export class LoadmoreNode {
 }
 
 /** Flat node with expandable and level information */
-export class LoadmoreFlatNode {
+export class TaskNode {
   constructor(public item: string,
               public level = 1,
               public expandable = false,
@@ -88,11 +88,11 @@ export class LoadmoreDatabase {
 })
 export class TaskTreeComponent implements OnInit {
 
-  nodeMap = new Map<string, LoadmoreFlatNode>();
-  treeControl: FlatTreeControl<LoadmoreFlatNode>;
-  treeFlattener: MatTreeFlattener<LoadmoreNode, LoadmoreFlatNode>;
+  nodeMap = new Map<string, TaskNode>();
+  treeControl: FlatTreeControl<TaskNode>;
+  treeFlattener: MatTreeFlattener<LoadmoreNode, TaskNode>;
   // Flat tree data source
-  dataSource: MatTreeFlatDataSource<LoadmoreNode, LoadmoreFlatNode>;
+  dataSource: MatTreeFlatDataSource<LoadmoreNode, TaskNode>;
 
   constructor(
     private taskDatabase: LoadmoreDatabase,
@@ -101,7 +101,7 @@ export class TaskTreeComponent implements OnInit {
     this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel,
       this.isExpandable, this.getChildren);
 
-    this.treeControl = new FlatTreeControl<LoadmoreFlatNode>(this.getLevel, this.isExpandable);
+    this.treeControl = new FlatTreeControl<TaskNode>(this.getLevel, this.isExpandable);
 
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
@@ -125,25 +125,25 @@ export class TaskTreeComponent implements OnInit {
     }
 
     const newNode =
-      new LoadmoreFlatNode(node.item, level, node.hasChildren, node.loadMoreParentItem);
+      new TaskNode(node.item, level, node.hasChildren, node.loadMoreParentItem);
     this.nodeMap.set(node.item, newNode);
     return newNode;
   }
 
-  getLevel = (node: LoadmoreFlatNode) => node.level;
+  getLevel = (node: TaskNode) => node.level;
 
-  isExpandable = (node: LoadmoreFlatNode) => node.expandable;
+  isExpandable = (node: TaskNode) => node.expandable;
 
-  hasChild = (_: number, nodeData: LoadmoreFlatNode) => nodeData.expandable;
+  hasChild = (_: number, nodeData: TaskNode) => nodeData.expandable;
 
-  // isLoadMore = (_: number, nodeData: LoadmoreFlatNode) => nodeData.item === LOAD_MORE;
+  // isLoadMore = (_: number, nodeData: TaskNode) => nodeData.item === LOAD_MORE;
 
   /** Load more nodes from data source */
   loadMore(item: string) {
     this.taskDatabase.loadMore(item);
   }
 
-  loadChildren(node: LoadmoreFlatNode) {
+  loadChildren(node: TaskNode) {
     this.taskDatabase.loadMore(node.item, true);
   }
 
