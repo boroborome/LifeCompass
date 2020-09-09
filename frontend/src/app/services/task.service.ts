@@ -25,4 +25,9 @@ export class TaskService {
     // @ts-ignore
     return this.http.get(this.url(''));
   }
+
+  querySubTasks(id: number): Observable<LcTask[]> {
+    // @ts-ignore
+    return this.http.get(this.url(`${id}/sub-task`));
+  }
 }
