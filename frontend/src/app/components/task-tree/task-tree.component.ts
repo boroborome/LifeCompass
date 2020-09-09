@@ -3,6 +3,7 @@ import {BehaviorSubject, Observable} from "rxjs";
 import {FlatTreeControl} from "@angular/cdk/tree";
 import {MatTreeFlatDataSource, MatTreeFlattener} from "@angular/material/tree";
 import {MasterService} from "../../services/master.service";
+import {LcTask} from "../../model/lc-task";
 
 const LOAD_MORE = 'LOAD_MORE';
 
@@ -10,6 +11,7 @@ const LOAD_MORE = 'LOAD_MORE';
 export class LoadmoreNode {
   childrenChange = new BehaviorSubject<LoadmoreNode[]>([]);
 
+  task: LcTask;
   get children(): LoadmoreNode[] {
     return this.childrenChange.value;
   }
@@ -29,7 +31,7 @@ export class LoadmoreFlatNode {
 
 @Injectable()
 export class LoadmoreDatabase {
-  batchNumber = 5;
+
   dataChange = new BehaviorSubject<LoadmoreNode[]>([]);
   nodeMap = new Map<string, LoadmoreNode>();
 
@@ -60,23 +62,19 @@ export class LoadmoreDatabase {
     if (onlyFirstTime && parent.children!.length > 0) {
       return;
     }
-    const newChildrenNumber = parent.children!.length + this.batchNumber;
-    const nodes = children.slice(0, newChildrenNumber)
-      .map(name => this._generateNode(name));
-    if (newChildrenNumber < children.length) {
-      // Need a new load more node
-      nodes.push(new LoadmoreNode(LOAD_MORE, false, item));
-    }
+    const nodes = children.map(name => this._generateNode(name));
 
     parent.childrenChange.next(nodes);
     this.dataChange.next(this.dataChange.value);
   }
 
   private _generateNode(item: string): LoadmoreNode {
+    console.log("new node:" + item);
     if (this.nodeMap.has(item)) {
       return this.nodeMap.get(item)!;
     }
     const result = new LoadmoreNode(item, this.dataMap.has(item));
+    result.task = {name: item, description: `ID:${item}`};
     this.nodeMap.set(item, result);
     return result;
   }
@@ -138,7 +136,7 @@ export class TaskTreeComponent implements OnInit {
 
   hasChild = (_: number, nodeData: LoadmoreFlatNode) => nodeData.expandable;
 
-  isLoadMore = (_: number, nodeData: LoadmoreFlatNode) => nodeData.item === LOAD_MORE;
+  // isLoadMore = (_: number, nodeData: LoadmoreFlatNode) => nodeData.item === LOAD_MORE;
 
   /** Load more nodes from data source */
   loadMore(item: string) {

@@ -21,10 +21,4 @@
     <mat-icon class='node-button'>add</mat-icon>
     <mat-icon class='node-button'>clear</mat-icon>
   </mat-tree-node>
-
-  <mat-tree-node *matTreeNodeDef="let node; when: isLoadMore">
-    <button mat-button (click)="loadMore(node.loadMoreParentItem)">
-      Load more...
-    </button>
-  </mat-tree-node>
 </mat-tree>
