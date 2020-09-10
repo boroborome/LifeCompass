@@ -16,6 +16,7 @@ export class TaskNode {
   }
 
   constructor(public task: LcTask,
+              public parent: TaskNode,
               public hasChildren = false,
               public level = 1,
               public expandable = false) {
@@ -53,7 +54,7 @@ export class TaskTreeComponent implements OnInit {
   ngOnInit(): void {
     this.taskService.queryRootTasks().subscribe(data => {
       const taskList: TaskNode[] = data.map(task =>
-        new TaskNode(task));
+        new TaskNode(task, null));
 
       this.taskListChange.next(taskList);
     });
@@ -89,7 +90,7 @@ export class TaskTreeComponent implements OnInit {
     this.taskService.querySubTasks(taskNode.task.id)
       .subscribe(data => {
         const subTasks: TaskNode[] = data.map(task =>
-          new TaskNode(task));
+          new TaskNode(task, null));
         taskNode.childrenChange.next(subTasks);
         this.taskListChange.next(this.taskListChange.value);
       });
@@ -98,7 +99,7 @@ export class TaskTreeComponent implements OnInit {
   createRootTask() {
     this.taskService.createRootTask({name: 'New Task'})
       .subscribe(task => {
-        this.taskListChange.value.push(new TaskNode(task));
+        this.taskListChange.value.push(new TaskNode(task, null));
         this.taskListChange.next(this.taskListChange.value);
       });
   }
