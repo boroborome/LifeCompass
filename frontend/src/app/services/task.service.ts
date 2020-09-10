@@ -37,4 +37,10 @@ export class TaskService {
       this.url(''),
       newTask);
   }
+
+  deleteTask(delTask: LcTask): Observable<LcTask> {
+    // @ts-ignore
+    return this.http.delete(
+      this.url(`${delTask.id}`));
+  }
 }

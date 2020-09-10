@@ -29,8 +29,8 @@ export class TaskNode {
   styleUrls: ['./task-tree.component.scss'],
 })
 export class TaskTreeComponent implements OnInit {
+  rootTaskNode: TaskNode = new TaskNode(null, null);
 
-  taskListChange = new BehaviorSubject<TaskNode[]>([]);
   treeControl: FlatTreeControl<TaskNode>;
   treeFlattener: MatTreeFlattener<TaskNode, TaskNode>;
   // Flat tree data source
@@ -46,7 +46,7 @@ export class TaskTreeComponent implements OnInit {
 
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
-    this.taskListChange.subscribe(data => {
+    this.rootTaskNode.childrenChange.subscribe(data => {
       this.dataSource.data = data;
     });
   }
@@ -54,9 +54,9 @@ export class TaskTreeComponent implements OnInit {
   ngOnInit(): void {
     this.taskService.queryRootTasks().subscribe(data => {
       const taskList: TaskNode[] = data.map(task =>
-        new TaskNode(task, null));
+        new TaskNode(task, this.rootTaskNode));
 
-      this.taskListChange.next(taskList);
+      this.rootTaskNode.childrenChange.next(taskList);
     });
   }
 
@@ -77,30 +77,39 @@ export class TaskTreeComponent implements OnInit {
 
   // isLoadMore = (_: number, nodeData: TaskNode) => nodeData.item === LOAD_MORE;
 
-
-  loadChildren(node: TaskNode) {
-    this.loadMoreData(node);
+  loadChildren(taskNode: TaskNode) {
+    this.taskService.querySubTasks(taskNode.task.id)
+      .subscribe(data => {
+        const subTasks: TaskNode[] = data.map(task =>
+          new TaskNode(task, taskNode));
+        taskNode.childrenChange.next(subTasks);
+        this.refreshTaskTree();
+      });
   }
 
   // ---
 
-  /** Expand a node whose children are not loaded */
-  // tslint:disable-next-line: typedef
-  loadMoreData(taskNode: TaskNode) {
-    this.taskService.querySubTasks(taskNode.task.id)
-      .subscribe(data => {
-        const subTasks: TaskNode[] = data.map(task =>
-          new TaskNode(task, null));
-        taskNode.childrenChange.next(subTasks);
-        this.taskListChange.next(this.taskListChange.value);
-      });
+  refreshTaskTree() {
+    const rootNode = this.rootTaskNode.childrenChange.value;
+    this.rootTaskNode.childrenChange.next(rootNode);
   }
 
   createRootTask() {
     this.taskService.createRootTask({name: 'New Task'})
       .subscribe(task => {
-        this.taskListChange.value.push(new TaskNode(task, null));
-        this.taskListChange.next(this.taskListChange.value);
+        this.rootTaskNode.childrenChange.value.push(new TaskNode(task, this.rootTaskNode));
+        this.refreshTaskTree();
+      });
+  }
+
+  deleteTask(taskNode: TaskNode) {
+    console.log(taskNode);
+    this.taskService.deleteTask(taskNode.task)
+      .subscribe(task => {
+        const parent = taskNode.parent;
+        const newChildren = parent.children.filter(item => item != taskNode);
+        parent.childrenChange.next(newChildren);
+        this.refreshTaskTree();
       });
   }
 }
