@@ -168,3 +168,4 @@ gradle-app.setting
 publish/db
 publish/public
 backend/db
+db
