@@ -3,7 +3,7 @@
   <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding fxLayout='row' fxLayoutAlign="end center" class='task-tree-node'>
     <button mat-icon-button disabled></button>
     <div fxFlex>{{node.task.name}}</div>
-    <mat-icon class='node-button'>add</mat-icon>
+    <mat-icon class='node-button' (click)="createSubTask(node)">add</mat-icon>
     <mat-icon class='node-button' (click)="deleteTask(node)">clear</mat-icon>
   </mat-tree-node>
 
@@ -18,7 +18,7 @@
       </mat-icon>
     </button>
     <div fxFlex>{{node.task.name}}</div>
-    <mat-icon class='node-button'>add</mat-icon>
+    <mat-icon class='node-button' (click)="createSubTask(node)">add</mat-icon>
     <mat-icon class='node-button' (click)="deleteTask(node)">clear</mat-icon>
   </mat-tree-node>
 </mat-tree>

@@ -36,9 +36,8 @@ public class LcTaskController {
 
     @ResponseBody
     @PostMapping
-    public LcTask createRootTask(@RequestBody LcTask newTask) {
-        newTask.setParentId(LcTask.ROOT_PARENT_ID);
-        return lcTaskRepository.save(newTask);
+    public LcTask createTask(@RequestBody LcTask newTask) {
+        return lcTaskService.createTask(newTask);
     }
 
     @ResponseBody
@@ -59,19 +58,6 @@ public class LcTaskController {
     @ResponseBody
     @PutMapping(path = "/{id}")
     public LcTask updateTask(@RequestBody LcTask newTask) {
-        return lcTaskRepository.save(newTask);
-    }
-
-    @ResponseBody
-    @PostMapping(path = "/{id}/sub-task")
-    public LcTask createSubTask(@PathVariable Long id) {
-        if (!lcTaskRepository.existsById(id)) {
-            throw new HttpClientErrorException(HttpStatus.NOT_FOUND,
-                    MessageFormat.format("No task with id:{0}", id));
-        }
-
-        LcTask newTask = new LcTask();
-        newTask.setParentId(id);
         return lcTaskRepository.save(newTask);
     }
 

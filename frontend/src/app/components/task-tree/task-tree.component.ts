@@ -19,7 +19,7 @@ export class TaskNode {
               public parent: TaskNode,
               public hasChildren = false,
               public level = 1,
-              public expandable = false) {
+              public expandable = true) {
   }
 }
 
@@ -29,7 +29,7 @@ export class TaskNode {
   styleUrls: ['./task-tree.component.scss'],
 })
 export class TaskTreeComponent implements OnInit {
-  rootTaskNode: TaskNode = new TaskNode(null, null);
+  rootTaskNode: TaskNode = new TaskNode({name: 'root holder node'}, null);
 
   treeControl: FlatTreeControl<TaskNode>;
   treeFlattener: MatTreeFlattener<TaskNode, TaskNode>;
@@ -95,20 +95,25 @@ export class TaskTreeComponent implements OnInit {
   }
 
   createRootTask() {
-    this.taskService.createRootTask({name: 'New Task'})
-      .subscribe(task => {
-        this.rootTaskNode.childrenChange.value.push(new TaskNode(task, this.rootTaskNode));
-        this.refreshTaskTree();
-      });
+    this.createSubTask(this.rootTaskNode);
   }
 
   deleteTask(taskNode: TaskNode) {
-    console.log(taskNode);
     this.taskService.deleteTask(taskNode.task)
       .subscribe(task => {
         const parent = taskNode.parent;
         const newChildren = parent.children.filter(item => item != taskNode);
         parent.childrenChange.next(newChildren);
+        this.refreshTaskTree();
+      });
+  }
+
+  createSubTask(parentTaskNode: TaskNode) {
+    const newTask: LcTask = {parentId: parentTaskNode.task.id, name: 'New Task'};
+    this.taskService.createTask(newTask)
+      .subscribe(task => {
+        parentTaskNode.children.push(new TaskNode(task, parentTaskNode));
+        parentTaskNode.expandable = true;
         this.refreshTaskTree();
       });
   }
