@@ -78,14 +78,17 @@ export class TaskTreeComponent implements OnInit {
 
   // isLoadMore = (_: number, nodeData: TaskNode) => nodeData.item === LOAD_MORE;
 
-  loadChildren(taskNode: TaskNode) {
+  loadChildren(taskNode: TaskNode): BehaviorSubject<TaskNode[]> {
+    const loadTaskNodes = new BehaviorSubject<TaskNode[]>(null);
     this.taskService.querySubTasks(taskNode.task.id)
       .subscribe(data => {
         const subTasks: TaskNode[] = data.map(task =>
           new TaskNode(task, taskNode));
         taskNode.childrenChange.next(subTasks);
         this.refreshTaskTree();
+        loadTaskNodes.next(subTasks);
       });
+    return loadTaskNodes;
   }
 
   // ---
@@ -113,11 +116,22 @@ export class TaskTreeComponent implements OnInit {
   }
 
   createSubTask(parentTaskNode: TaskNode) {
+    if (!this.treeControl.isExpanded(parentTaskNode)) {
+      this.loadChildren(parentTaskNode)
+        .subscribe(loadTaskNodes => {
+          this.treeControl.expand(parentTaskNode);
+          this.createSubTaskImpl(parentTaskNode);
+        })
+    } else {
+      this.createSubTaskImpl(parentTaskNode);
+    }
+  }
+
+  createSubTaskImpl(parentTaskNode: TaskNode) {
     const newTask: LcTask = {parentId: parentTaskNode.task.id, name: 'New Task'};
     this.taskService.createTask(newTask)
       .subscribe(task => {
         const newTaskNode: TaskNode = new TaskNode(task, parentTaskNode);
-        this.treeControl.expand(parentTaskNode);
         parentTaskNode.children.push(newTaskNode);
         this.refreshTaskTree();
         this.selectedTaskNode.next(newTaskNode)
