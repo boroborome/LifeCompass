@@ -29,6 +29,7 @@ export class TaskNode {
   styleUrls: ['./task-tree.component.scss'],
 })
 export class TaskTreeComponent implements OnInit {
+  selectedTaskNode = new BehaviorSubject<TaskNode>(null);
   rootTaskNode: TaskNode = new TaskNode({name: 'root holder node'}, null);
 
   treeControl: FlatTreeControl<TaskNode>;
@@ -104,6 +105,9 @@ export class TaskTreeComponent implements OnInit {
         const parent = taskNode.parent;
         const newChildren = parent.children.filter(item => item != taskNode);
         parent.childrenChange.next(newChildren);
+        if (taskNode == this.selectedTaskNode.value) {
+          this.selectedTaskNode.next(null);
+        }
         this.refreshTaskTree();
       });
   }
@@ -112,9 +116,15 @@ export class TaskTreeComponent implements OnInit {
     const newTask: LcTask = {parentId: parentTaskNode.task.id, name: 'New Task'};
     this.taskService.createTask(newTask)
       .subscribe(task => {
-        parentTaskNode.children.push(new TaskNode(task, parentTaskNode));
-        parentTaskNode.expandable = true;
+        const newTaskNode: TaskNode = new TaskNode(task, parentTaskNode);
+        this.treeControl.expand(parentTaskNode);
+        parentTaskNode.children.push(newTaskNode);
         this.refreshTaskTree();
+        this.selectedTaskNode.next(newTaskNode)
       });
+  }
+
+  selectNode(node: TaskNode) {
+    this.selectedTaskNode.next(node);
   }
 }
