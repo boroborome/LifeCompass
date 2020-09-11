@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {LcTask} from "../../model/lc-task";
 
 @Component({
   selector: 'app-task-edit-pane',
@@ -6,10 +7,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./task-edit-pane.component.scss']
 })
 export class TaskEditPaneComponent implements OnInit {
+  task: LcTask = new LcTask();
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  setTask(task: LcTask) {
+    task.useNativeDate();
+    this.task = task;
+  }
+
+  apply() {
+    console.log(this.task);
+  }
 }

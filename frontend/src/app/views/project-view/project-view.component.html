@@ -15,8 +15,8 @@
         <mat-icon (click)="taskTree.createRootTask()">add</mat-icon>
         <mat-icon (click)="refreshTaskList()">toys</mat-icon>
       </div>
-      <app-task-tree #taskTree></app-task-tree>
+      <app-task-tree #taskTree (selectChanged)="taskDetail.setTask($event)"></app-task-tree>
     </div>
-    <app-task-edit-pane fxFlex></app-task-edit-pane>
+    <app-task-edit-pane #taskDetail fxFlex></app-task-edit-pane>
   </div>
 </div>

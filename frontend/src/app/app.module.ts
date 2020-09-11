@@ -24,6 +24,7 @@ import { DateViewComponent } from './views/date-view/date-view.component';
 import { HistoryViewComponent } from './views/history-view/history-view.component';
 import { TaskEditPaneComponent } from './components/task-edit-pane/task-edit-pane.component';
 import { TaskTreeComponent } from './components/task-tree/task-tree.component';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -34,25 +35,26 @@ import { TaskTreeComponent } from './components/task-tree/task-tree.component';
     TaskEditPaneComponent,
     TaskTreeComponent
   ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    AppRoutingModule,
-    FlexLayoutModule,
-    MatSliderModule,
-    MatTabsModule,
-    MatTreeModule,
-    MatIconModule,
-    MatInputModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatButtonModule,
-    MatMomentDateModule,
-    MatRadioModule,
-    BrowserAnimationsModule,
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        AppRoutingModule,
+        FlexLayoutModule,
+        MatSliderModule,
+        MatTabsModule,
+        MatTreeModule,
+        MatIconModule,
+        MatInputModule,
+        MatSelectModule,
+        MatDatepickerModule,
+        MatButtonModule,
+        MatMomentDateModule,
+        MatRadioModule,
+        BrowserAnimationsModule,
 
-    ServicesModule,
-  ],
+        ServicesModule,
+        FormsModule,
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

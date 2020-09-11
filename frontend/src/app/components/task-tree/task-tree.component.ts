@@ -1,11 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {BehaviorSubject, Observable} from "rxjs";
 import {FlatTreeControl} from "@angular/cdk/tree";
 import {MatTreeFlatDataSource, MatTreeFlattener} from "@angular/material/tree";
 import {LcTask} from "../../model/lc-task";
 import {TaskService} from "../../services/task.service";
-
-const LOAD_MORE = 'LOAD_MORE';
 
 /** Nested node */
 export class TaskNode {
@@ -29,8 +27,9 @@ export class TaskNode {
   styleUrls: ['./task-tree.component.scss'],
 })
 export class TaskTreeComponent implements OnInit {
+  @Output() selectChanged = new EventEmitter<LcTask>();
   selectedTaskNode = new BehaviorSubject<TaskNode>(null);
-  rootTaskNode: TaskNode = new TaskNode({name: 'root holder node'}, null);
+  rootTaskNode: TaskNode = new TaskNode(LcTask.of({name: 'root holder node'}), null);
 
   treeControl: FlatTreeControl<TaskNode>;
   treeFlattener: MatTreeFlattener<TaskNode, TaskNode>;
@@ -50,10 +49,12 @@ export class TaskTreeComponent implements OnInit {
     this.rootTaskNode.childrenChange.subscribe(data => {
       this.dataSource.data = data;
     });
+    this.selectedTaskNode.subscribe(selectedTask => this.selectChanged.emit(selectedTask?.task));
   }
 
   ngOnInit(): void {
     this.taskService.queryRootTasks().subscribe(data => {
+      console.log(data);
       const taskList: TaskNode[] = data.map(task =>
         new TaskNode(task, this.rootTaskNode));
 
@@ -128,7 +129,7 @@ export class TaskTreeComponent implements OnInit {
   }
 
   createSubTaskImpl(parentTaskNode: TaskNode) {
-    const newTask: LcTask = {parentId: parentTaskNode.task.id, name: 'New Task'};
+    const newTask: LcTask = LcTask.of({parentId: parentTaskNode.task.id, name: 'New Task'});
     this.taskService.createTask(newTask)
       .subscribe(task => {
         const newTaskNode: TaskNode = new TaskNode(task, parentTaskNode);
