@@ -1,47 +1,52 @@
 import {Component, OnInit} from '@angular/core';
 import {LcTask} from "../../model/lc-task";
 import {TaskService} from "../../services/task.service";
+import {FormControl, FormGroupDirective, NgForm, Validators} from "@angular/forms";
+import {ErrorStateMatcher} from "@angular/material/core";
+import * as moment from "moment";
 
 class LcTaskShow {
+  static DATE_FORMAT = 'YYYY-MM-DD';
+  static DATE_TIME_FORMAT = LcTaskShow.DATE_FORMAT + ' HH:mm';
+
   id?: number;
   parentId?: number;
   name?: string;
   description?: string;
   priority?: string;
   status?: string;
-  planStartTime?: Date;
-  planEndTime?: Date;
-  actualStartTime?: Date;
-  actualEndTime?: Date;
+  planStartTime?: string;
+  planEndTime?: string;
+  actualStartTime?: string;
+  actualEndTime?: string;
   remark?: string;
 
   copy(task: LcTask) {
     Object.assign(this, task);
 
-    this.planStartTime = this.nativeDate(task.planStartTime);
-    this.planEndTime = this.nativeDate(task.planEndTime);
-    this.actualStartTime = this.nativeDate(task.actualStartTime);
-    this.actualEndTime = this.nativeDate(task.actualEndTime);
+    this.planStartTime = this.stringDate(task.planStartTime);
+    this.planEndTime = this.stringDate(task.planEndTime);
+    this.actualStartTime = this.stringDate(task.actualStartTime);
+    this.actualEndTime = this.stringDate(task.actualEndTime);
     this.priority = task.priority == null ? "0": `${task.priority}`;
+    console.log(`number:${task.planStartTime} => string:${this.planStartTime}`);
   }
 
+  stringDate(timestamp: number): string | null {
+    if (timestamp == null) {
+      // @ts-ignore
+      return timestamp
+    }
 
-  nativeDate(value: number): Date | null {
+    return moment(new Date(timestamp)).format('YYYY-MM-DD HH:mm');
+  }
+
+  timestampDate(value: string): number | null {
     if (value == null) {
       // @ts-ignore
       return value
     }
-
-    return new Date(value);
-  }
-
-  timestampDate(value: Date): number | null {
-    if (value == null) {
-      // @ts-ignore
-      return value
-    }
-
-    return value.getTime();
+    return new Date(value).getTime();
   }
 
   toTask(): LcTask {
@@ -53,7 +58,16 @@ class LcTaskShow {
     task.actualEndTime = this.timestampDate(this.actualEndTime);
     task.priority = this.priority == null ? null : parseInt(this.priority, 10);
 
+    console.log(`string:${this.planStartTime} => number:${task.planStartTime}`);
+
     return task;
+  }
+}
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
 
@@ -66,6 +80,13 @@ export class TaskEditPaneComponent implements OnInit {
   taskShowed: LcTaskShow = new LcTaskShow();
   taskOrigin: LcTask;
   dirty: boolean = false;
+  planStartFormControl = new FormControl('', [
+    Validators.pattern(/^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])( (20|21|22|23|[0-1]\d):[0-5]\d)?$/),
+  ]);
+  planEndFormControl = new FormControl('', [
+    Validators.pattern(/^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])( (20|21|22|23|[0-1]\d):[0-5]\d)?$/),
+  ]);
+  matcher = new MyErrorStateMatcher();
 
   constructor(private taskService: TaskService) { }
 

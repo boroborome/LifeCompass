@@ -24,7 +24,7 @@ import { DateViewComponent } from './views/date-view/date-view.component';
 import { HistoryViewComponent } from './views/history-view/history-view.component';
 import { TaskEditPaneComponent } from './components/task-edit-pane/task-edit-pane.component';
 import { TaskTreeComponent } from './components/task-tree/task-tree.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -35,26 +35,27 @@ import {FormsModule} from "@angular/forms";
     TaskEditPaneComponent,
     TaskTreeComponent
   ],
-    imports: [
-        BrowserModule,
-        HttpClientModule,
-        AppRoutingModule,
-        FlexLayoutModule,
-        MatSliderModule,
-        MatTabsModule,
-        MatTreeModule,
-        MatIconModule,
-        MatInputModule,
-        MatSelectModule,
-        MatDatepickerModule,
-        MatButtonModule,
-        MatMomentDateModule,
-        MatRadioModule,
-        BrowserAnimationsModule,
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    FlexLayoutModule,
+    MatSliderModule,
+    MatTabsModule,
+    MatTreeModule,
+    MatIconModule,
+    MatInputModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatButtonModule,
+    MatMomentDateModule,
+    MatRadioModule,
+    BrowserAnimationsModule,
 
-        ServicesModule,
-        FormsModule,
-    ],
+    ServicesModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
