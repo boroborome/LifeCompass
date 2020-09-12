@@ -90,7 +90,6 @@ export class TaskEditPaneComponent implements OnInit {
     this.taskOrigin = task;
     this.taskShowed.copy(task);
     this.dirty = false;
-    console.log(this.taskShowed.priority);
   }
 
   trySaveData() {
@@ -100,7 +99,6 @@ export class TaskEditPaneComponent implements OnInit {
   }
 
   saveData() {
-    console.log(this.taskShowed.priority);
     const taskOrigin = this.taskOrigin;
     this.taskService.updateTask(this.taskShowed.toTask())
       .subscribe(task => {
@@ -119,6 +117,5 @@ export class TaskEditPaneComponent implements OnInit {
 
   notifyDirty() {
     this.dirty = true;
-    console.log(this.taskShowed.priority);
   }
 }
