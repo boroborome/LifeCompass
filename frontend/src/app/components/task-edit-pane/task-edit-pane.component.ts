@@ -4,6 +4,8 @@ import {TaskService} from "../../services/task.service";
 import {FormControl, FormGroupDirective, NgForm, Validators} from "@angular/forms";
 import {ErrorStateMatcher} from "@angular/material/core";
 import * as moment from "moment";
+import {EnumItem} from "../../utils/enum-item";
+import {MasterService} from "../../services/master.service";
 
 class LcTaskShow {
   static DATE_FORMAT = 'YYYY-MM-DD';
@@ -88,9 +90,15 @@ export class TaskEditPaneComponent implements OnInit {
   ]);
   matcher = new MyErrorStateMatcher();
 
-  constructor(private taskService: TaskService) { }
+  taskStatusRange: EnumItem[] = [];
+
+  constructor(private taskService: TaskService,
+              private masterService: MasterService,
+              ) { }
 
   ngOnInit(): void {
+    this.masterService.getTaskStatus()
+      .subscribe((data: EnumItem[]) => this.taskStatusRange = data);
   }
 
   setTask(task: LcTask) {

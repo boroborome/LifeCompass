@@ -18,9 +18,8 @@
     <mat-form-field appearance="fill">
         <mat-label>Task Status</mat-label>
         <mat-select [(ngModel)]="taskShowed.status" (ngModelChange)="notifyDirty()">
-            <mat-option value="normal">Normal</mat-option>
-            <mat-option value="block">Block</mat-option>
-            <mat-option value="finish">Finish</mat-option>
+          <mat-option *ngFor="let taskStatusItem of taskStatusRange"
+                      [value]="taskStatusItem.code">{{taskStatusItem.name}}</mat-option>
         </mat-select>
     </mat-form-field>
 </p>
