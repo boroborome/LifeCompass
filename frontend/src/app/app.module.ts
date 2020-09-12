@@ -25,6 +25,7 @@ import { HistoryViewComponent } from './views/history-view/history-view.componen
 import { TaskEditPaneComponent } from './components/task-edit-pane/task-edit-pane.component';
 import { TaskTreeComponent } from './components/task-tree/task-tree.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { TaskFilterComponent } from './components/task-filter/task-filter.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     DateViewComponent,
     HistoryViewComponent,
     TaskEditPaneComponent,
-    TaskTreeComponent
+    TaskTreeComponent,
+    TaskFilterComponent
   ],
   imports: [
     BrowserModule,
