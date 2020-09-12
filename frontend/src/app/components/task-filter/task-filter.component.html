@@ -1,1 +1,7 @@
-<p>task-filter works!</p>
+<mat-form-field appearance="fill">
+  <mat-label>Task Status</mat-label>
+  <mat-select>
+    <mat-option *ngFor="let taskStatusItem of taskStatusRange"
+                [value]="taskStatusItem.code">{{taskStatusItem.name}}</mat-option>
+  </mat-select>
+</mat-form-field>
