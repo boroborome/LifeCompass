@@ -104,6 +104,9 @@ export class TaskTreeComponent implements OnInit {
   }
 
   deleteTask(taskNode: TaskNode) {
+    if (!confirm(`Are you sure to delete Task:${taskNode.task.name}?`)) {
+      return;
+    }
     this.taskService.deleteTask(taskNode.task)
       .subscribe(task => {
         const parent = taskNode.parent;
