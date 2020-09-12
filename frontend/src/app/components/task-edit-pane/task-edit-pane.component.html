@@ -39,9 +39,10 @@
         <mat-datepicker #planEndDate></mat-datepicker>
     </mat-form-field>
 </p>
-<p>
+<p fxLayoutGap='30px'>
     <mat-label>优先级</mat-label>
     <mat-radio-group aria-label="优先级" [(ngModel)]="taskShowed.priority"
+                     fxLayoutGap='30px'
                      (ngModelChange)="notifyDirty()">
         <mat-radio-button value="1">高</mat-radio-button>
         <mat-radio-button value="0">中</mat-radio-button>
