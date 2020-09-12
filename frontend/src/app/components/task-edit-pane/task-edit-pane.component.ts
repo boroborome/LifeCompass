@@ -88,7 +88,7 @@ export class TaskEditPaneComponent implements OnInit {
 
   showNewTask(task: LcTask) {
     this.taskOrigin = task;
-    this.taskShowed.copy(task);
+    this.taskShowed.copy(task == null ? {} : task);
     this.dirty = false;
   }
 

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {BehaviorSubject, Observable} from "rxjs";
+import {AsyncSubject, BehaviorSubject, Observable} from "rxjs";
 import {FlatTreeControl} from "@angular/cdk/tree";
 import {MatTreeFlatDataSource, MatTreeFlattener} from "@angular/material/tree";
 import {LcTask} from "../../model/lc-task";
@@ -78,8 +78,8 @@ export class TaskTreeComponent implements OnInit {
 
   // isLoadMore = (_: number, nodeData: TaskNode) => nodeData.item === LOAD_MORE;
 
-  loadChildren(taskNode: TaskNode): BehaviorSubject<TaskNode[]> {
-    const loadTaskNodes = new BehaviorSubject<TaskNode[]>(null);
+  loadChildren(taskNode: TaskNode): Observable<TaskNode[]> {
+    const loadTaskNodes = new AsyncSubject<TaskNode[]>();
     this.taskService.querySubTasks(taskNode.task.id)
       .subscribe(data => {
         const subTasks: TaskNode[] = data.map(task =>
@@ -87,6 +87,7 @@ export class TaskTreeComponent implements OnInit {
         taskNode.childrenChange.next(subTasks);
         this.refreshTaskTree();
         loadTaskNodes.next(subTasks);
+        loadTaskNodes.complete();
       });
     return loadTaskNodes;
   }
