@@ -1,4 +1,4 @@
-import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {BehaviorSubject, Observable} from "rxjs";
 import {FlatTreeControl} from "@angular/cdk/tree";
 import {MatTreeFlatDataSource, MatTreeFlattener} from "@angular/material/tree";
@@ -29,7 +29,7 @@ export class TaskNode {
 export class TaskTreeComponent implements OnInit {
   @Output() selectChanged = new EventEmitter<LcTask>();
   selectedTaskNode = new BehaviorSubject<TaskNode>(null);
-  rootTaskNode: TaskNode = new TaskNode(LcTask.of({name: 'root holder node'}), null);
+  rootTaskNode: TaskNode = new TaskNode({name: 'root holder node'}, null);
 
   treeControl: FlatTreeControl<TaskNode>;
   treeFlattener: MatTreeFlattener<TaskNode, TaskNode>;
@@ -128,7 +128,7 @@ export class TaskTreeComponent implements OnInit {
   }
 
   createSubTaskImpl(parentTaskNode: TaskNode) {
-    const newTask: LcTask = LcTask.of({parentId: parentTaskNode.task.id, name: 'New Task'});
+    const newTask: LcTask = {parentId: parentTaskNode.task.id, name: 'New Task'};
     this.taskService.createTask(newTask)
       .subscribe(task => {
         const newTaskNode: TaskNode = new TaskNode(task, parentTaskNode);
