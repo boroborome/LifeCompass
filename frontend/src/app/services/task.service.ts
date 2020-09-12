@@ -64,4 +64,11 @@ export class TaskService {
       this.url(`${delTask.id}`));
     return this.wrapperSingle(response);
   }
+
+  updateTask(task: LcTask): Observable<LcTask> {
+    const response = this.http.put(
+      this.url(`${task.id}`),
+      task);
+    return this.wrapperSingle(response);
+  }
 }

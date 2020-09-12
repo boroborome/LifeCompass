@@ -1,7 +1,7 @@
 <p>
     <mat-form-field appearance="legacy">
         <mat-label>Task Name</mat-label>
-        <input matInput placeholder="Placeholder" [(ngModel)]="task.name">
+        <input matInput placeholder="Placeholder" [(ngModel)]="taskShowed.name" (change)="notifyDirty()">
         <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
         <mat-hint>Hint</mat-hint>
     </mat-form-field>
@@ -9,7 +9,7 @@
 <p>
     <mat-form-field appearance="legacy">
         <mat-label>Task Description</mat-label>
-        <input matInput placeholder="Placeholder" [(ngModel)]="task.description">
+        <input matInput placeholder="Placeholder" [(ngModel)]="taskShowed.description" (change)="notifyDirty()">
         <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
         <mat-hint>Hint</mat-hint>
     </mat-form-field>
@@ -17,7 +17,7 @@
 <p>
     <mat-form-field appearance="fill">
         <mat-label>Task Status</mat-label>
-        <mat-select [(ngModel)]="task.status">
+        <mat-select [(ngModel)]="taskShowed.status" (ngModelChange)="notifyDirty()">
             <mat-option value="normal">Normal</mat-option>
             <mat-option value="block">Block</mat-option>
             <mat-option value="finish">Finish</mat-option>
@@ -27,20 +27,22 @@
 <p>
     <mat-form-field appearance="fill">
         <mat-label>计划开始时间</mat-label>
-        <input matInput type="datetime-local" [matDatepicker]="planStartDate" [(ngModel)]="task.planStartTime">
+        <input matInput type="datetime-local" [matDatepicker]="planStartDate"
+               [(ngModel)]="taskShowed.planStartTime" (change)="notifyDirty()">
         <mat-datepicker #planStartDate></mat-datepicker>
     </mat-form-field>
     -
     <mat-form-field appearance="fill">
         <mat-label>计划结束时间</mat-label>
         <input matInput type="datetime" [matDatepicker]="planEndDate"
-               [(ngModel)]="task.planEndTime" format="yyyy-MM-dd HH:mm:ss">
+               [(ngModel)]="taskShowed.planEndTime" (change)="notifyDirty()">
         <mat-datepicker #planEndDate></mat-datepicker>
     </mat-form-field>
 </p>
 <p>
     <mat-label>优先级</mat-label>
-    <mat-radio-group aria-label="优先级" [(ngModel)]="task.priority">
+    <mat-radio-group aria-label="优先级" [(ngModel)]="taskShowed.priority"
+                     (ngModelChange)="notifyDirty()">
         <mat-radio-button value="1">高</mat-radio-button>
         <mat-radio-button value="0">中</mat-radio-button>
         <mat-radio-button value="-1">低</mat-radio-button>
@@ -49,12 +51,15 @@
 <p>
     <mat-form-field class="example-full-width">
         <mat-label>备注</mat-label>
-        <textarea matInput #message maxlength="256" placeholder="Ex. I need help with..." [(ngModel)]="task.remark"></textarea>
+        <textarea matInput #message maxlength="256" placeholder="Ex. I need help with..."
+                  [(ngModel)]="taskShowed.remark" (change)="notifyDirty()">
+
+        </textarea>
         <mat-hint align="start"><strong>Don't disclose personal info</strong> </mat-hint>
         <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
       </mat-form-field>
 </p>
 <p>
     <button mat-stroked-button (click)="apply()">应用</button>
-    <button mat-stroked-button>取消</button>
+    <button mat-stroked-button (click)="cancel()">取消</button>
 </p>

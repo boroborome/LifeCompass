@@ -54,7 +54,6 @@ export class TaskTreeComponent implements OnInit {
 
   ngOnInit(): void {
     this.taskService.queryRootTasks().subscribe(data => {
-      console.log(data);
       const taskList: TaskNode[] = data.map(task =>
         new TaskNode(task, this.rootTaskNode));
 
