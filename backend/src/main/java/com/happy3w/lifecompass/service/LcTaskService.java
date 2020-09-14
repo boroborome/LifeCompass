@@ -10,6 +10,7 @@ import org.springframework.web.client.HttpClientErrorException;
 
 import java.text.MessageFormat;
 import java.util.List;
+import java.util.Optional;
 import java.util.Stack;
 
 @Service
@@ -51,11 +52,28 @@ public class LcTaskService {
         }
 
         LcTask dbTask = lcTaskRepository.save(newTask);
-        if (dbTask.getParentId() != LcTask.ROOT_PARENT_ID) {
-            lcTaskRepository.appendChildStatusById(dbTask.getParentId(), dbTask.getStatus());
-        }
+        appendStatus(dbTask.getParentId(), dbTask.getStatus());
 
         return dbTask;
+    }
+
+    private void appendStatus(Long taskId, int status) {
+        Long parentId = taskId;
+
+        while (parentId != null && parentId != LcTask.ROOT_PARENT_ID) {
+            Optional<LcTask> taskOpt = lcTaskRepository.findById(parentId);
+            if (!taskOpt.isPresent()) {
+                return;
+            }
+
+            LcTask task = taskOpt.get();
+            if ((task.getStatus() & status) == status) {
+                return;
+            }
+
+            parentId = task.getParentId();
+            lcTaskRepository.appendChildStatusById(task.getId(), status);
+        }
     }
 
     public List<LcTask> querySubTasks(TaskFilter filter) {
