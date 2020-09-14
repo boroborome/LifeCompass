@@ -29,7 +29,7 @@ export class TaskNode {
 export class TaskTreeComponent implements OnInit {
   @Output() selectChanged = new EventEmitter<LcTask>();
   selectedTaskNode = new BehaviorSubject<TaskNode>(null);
-  rootTaskNode: TaskNode = new TaskNode({name: 'root holder node'}, null);
+  rootTaskNode: TaskNode = new TaskNode({id: -1, name: 'root holder node'}, null);
 
   treeControl: FlatTreeControl<TaskNode>;
   treeFlattener: MatTreeFlattener<TaskNode, TaskNode>;
