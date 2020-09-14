@@ -9,7 +9,7 @@ CREATE TABLE LcTask (
     planEndTime BIGINT,
     priority INTEGER,
     remark VARCHAR(255),
-    status VARCHAR(255),
+    status INTEGER(255),
     childStatus INTEGER,
     PRIMARY KEY (id));
 create index indexParentId on LcTask(parentId);

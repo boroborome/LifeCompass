@@ -10,7 +10,7 @@ CREATE TABLE LcTask (
     planStartTime BIGINT,
     priority INTEGER,
     remark VARCHAR,
-    status VARCHAR);
+    status INTEGER);
 create index indexParentId on LcTask(parentId);
 create index indexActualStartTime on LcTask(actualStartTime);
 create index indexPlanStartTime on LcTask(planStartTime);

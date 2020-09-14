@@ -31,7 +31,7 @@ class LcTaskShow {
     this.actualStartTime = this.stringDate(task.actualStartTime);
     this.actualEndTime = this.stringDate(task.actualEndTime);
     this.priority = task.priority == null ? "0": `${task.priority}`;
-    console.log(`number:${task.planStartTime} => string:${this.planStartTime}`);
+    this.status = task.status != null ? task.status.toString() : "0";
   }
 
   stringDate(timestamp: number): string | null {
@@ -58,9 +58,8 @@ class LcTaskShow {
     task.planEndTime = this.timestampDate(this.planEndTime);
     task.actualStartTime = this.timestampDate(this.actualStartTime);
     task.actualEndTime = this.timestampDate(this.actualEndTime);
-    task.priority = this.priority == null ? null : parseInt(this.priority, 10);
-
-    console.log(`string:${this.planStartTime} => number:${task.planStartTime}`);
+    task.priority = this.priority == null ? 0 : parseInt(this.priority, 10);
+    task.status = this.status == null ? 0 : parseInt(this.status)
 
     return task;
   }

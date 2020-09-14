@@ -1,5 +1,6 @@
 package com.happy3w.lifecompass.entity;
 
+import com.happy3w.lifecompass.model.TaskStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -47,7 +48,7 @@ public class LcTask {
 
     @Basic
     @Column(name = "status")
-    private String status;
+    private int status = TaskStatus.normal.getValue();
 
     @Basic
     @Column(name = "planStartTime")

@@ -5,7 +5,7 @@ export class LcTask {
   name?: string;
   description?: string;
   priority?: number;
-  status?: string;        // normal, block, finish
+  status?: number;
   planStartTime?: number;
   planEndTime?: number;
   actualStartTime?: number;
