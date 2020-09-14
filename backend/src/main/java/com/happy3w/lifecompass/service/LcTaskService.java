@@ -43,13 +43,19 @@ public class LcTaskService {
     }
 
     public LcTask createTask(LcTask newTask) {
-        if (newTask.getParentId() == null) {
+        if (newTask.getParentId() == null || newTask.getParentId() == LcTask.ROOT_PARENT_ID) {
             newTask.setParentId(LcTask.ROOT_PARENT_ID);
         } else if (!lcTaskRepository.existsById(newTask.getParentId())) {
             throw new HttpClientErrorException(HttpStatus.NOT_FOUND,
                     MessageFormat.format("No task with id:{0}", newTask.getParentId()));
         }
-        return lcTaskRepository.save(newTask);
+
+        LcTask dbTask = lcTaskRepository.save(newTask);
+        if (dbTask.getParentId() != LcTask.ROOT_PARENT_ID) {
+            lcTaskRepository.appendChildStatusById(dbTask.getParentId(), dbTask.getStatus());
+        }
+
+        return dbTask;
     }
 
     public List<LcTask> querySubTasks(TaskFilter filter) {
