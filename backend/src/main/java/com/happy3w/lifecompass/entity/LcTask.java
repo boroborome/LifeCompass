@@ -68,4 +68,8 @@ public class LcTask {
     @Basic
     @Column(name = "remark")
     private String remark;
+
+    @Basic
+    @Column(name = "childStatus")
+    private int childStatus;
 }
