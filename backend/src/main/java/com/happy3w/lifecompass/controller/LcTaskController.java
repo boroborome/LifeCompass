@@ -1,6 +1,7 @@
 package com.happy3w.lifecompass.controller;
 
 import com.happy3w.lifecompass.entity.LcTask;
+import com.happy3w.lifecompass.model.TaskFilter;
 import com.happy3w.lifecompass.repository.LcTaskRepository;
 import com.happy3w.lifecompass.service.LcTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,12 @@ public class LcTaskController {
     @GetMapping()
     public List<LcTask> queryAllRootTasks() {
         return lcTaskRepository.findAllByParentId(LcTask.ROOT_PARENT_ID);
+    }
+
+    @ResponseBody
+    @PostMapping(headers = "cmd=query-sub-tasks")
+    public List<LcTask> querySubTasks(@RequestBody TaskFilter filter) {
+        return lcTaskService.querySubTasks(filter);
     }
 
     @ResponseBody

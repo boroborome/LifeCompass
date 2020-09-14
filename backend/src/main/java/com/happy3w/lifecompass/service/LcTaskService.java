@@ -1,6 +1,7 @@
 package com.happy3w.lifecompass.service;
 
 import com.happy3w.lifecompass.entity.LcTask;
+import com.happy3w.lifecompass.model.TaskFilter;
 import com.happy3w.lifecompass.repository.LcTaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -49,5 +50,9 @@ public class LcTaskService {
                     MessageFormat.format("No task with id:{0}", newTask.getParentId()));
         }
         return lcTaskRepository.save(newTask);
+    }
+
+    public List<LcTask> querySubTasks(TaskFilter filter) {
+        return null;
     }
 }
