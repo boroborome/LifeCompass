@@ -2,9 +2,9 @@ server:
   port: 8086
 spring:
   datasource:
-    url: jdbc:sqlite:db/sqlite/life-compass;create=true
-    username: root
-    password: root
+    url: jdbc:sqlite:db/sqlite/life-compass.db
+    username:
+    password:
     driver-class-name: org.sqlite.JDBC
 
   jpa:
@@ -12,7 +12,7 @@ spring:
       ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-      database-platform: com.happy3w.lifecompass.utils.dialect.SqliteDialect
+    database-platform: com.happy3w.lifecompass.utils.dialect.SqliteDialect
   servlet:
     multipart:
       max-file-size: 20MB

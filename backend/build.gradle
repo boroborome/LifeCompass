@@ -24,6 +24,9 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 
 	runtimeOnly 'org.apache.derby:derby'
+//	runtimeOnly 'mysql:mysql-connector-java'
+	runtimeOnly 'org.xerial:sqlite-jdbc:3.32.3.2'
+
 //	runtimeOnly 'org.apache.derby:derby:10.11.1.1'
 //	runtimeOnly 'org.apache.derby:derbyclient:10.11.1.1'
 //	runtimeOnly 'org.apache.derby:derbytools:10.11.1.1'
