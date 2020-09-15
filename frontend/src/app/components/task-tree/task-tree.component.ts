@@ -55,12 +55,11 @@ export class TaskTreeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.taskService.queryRootTasks().subscribe(data => {
-      const taskList: TaskNode[] = data.map(task =>
-        new TaskNode(task, this.rootTaskNode));
+    this.reloadRoot();
+  }
 
-      this.rootTaskNode.childrenChange.next(taskList);
-    });
+  reloadRoot() {
+    this.loadChildren(this.rootTaskNode);
   }
 
   // -- begin for MatTreeFlattener

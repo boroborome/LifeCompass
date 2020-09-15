@@ -22,11 +22,6 @@ export class TaskService {
     return this.api.taskApi(`/task/${relativeUrl}`);
   }
 
-  queryRootTasks(): Observable<LcTask[]> {
-    // @ts-ignore
-    return this.http.get(this.url(''));
-  }
-
   querySubTasks(filter: TaskFilter): Observable<LcTask[]> {
     // @ts-ignore
     return this.http.post(this.url(''),

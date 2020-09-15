@@ -7,7 +7,7 @@
     <div fxLayout="column">
       <div fxLayout="row">
         <mat-icon (click)="taskTree.createRootTask()">add</mat-icon>
-        <mat-icon (click)="refreshTaskList()">toys</mat-icon>
+        <mat-icon (click)="taskTree.reloadRoot()">toys</mat-icon>
       </div>
       <app-task-tree #taskTree (selectChanged)="taskDetail.setTask($event)" [filter]="taskFilter.filter"></app-task-tree>
     </div>

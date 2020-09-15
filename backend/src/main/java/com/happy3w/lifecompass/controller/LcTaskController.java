@@ -36,12 +36,6 @@ public class LcTaskController {
     private LcTaskService lcTaskService;
 
     @ResponseBody
-    @GetMapping()
-    public List<LcTask> queryAllRootTasks() {
-        return lcTaskRepository.findAllByParentId(LcTask.ROOT_PARENT_ID);
-    }
-
-    @ResponseBody
     @PostMapping(headers = "cmd=query-sub-tasks")
     public List<LcTask> querySubTasks(@RequestBody TaskFilterDto filter) {
         return lcTaskService.querySubTasks(filter.toFilter());
@@ -89,12 +83,6 @@ public class LcTaskController {
                 () -> new HttpClientErrorException(HttpStatus.NOT_FOUND,
                         MessageFormat.format("No task with id:{0}", id))
         );
-    }
-
-    @ResponseBody
-    @GetMapping(path = "/{id}/sub-task")
-    public List<LcTask> querySubTasks(@PathVariable Long id) {
-        return lcTaskRepository.findAllByParentId(id);
     }
 
     @ResponseBody
