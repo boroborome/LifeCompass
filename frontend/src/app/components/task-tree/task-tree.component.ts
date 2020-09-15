@@ -1,9 +1,10 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AsyncSubject, BehaviorSubject, Observable} from "rxjs";
 import {FlatTreeControl} from "@angular/cdk/tree";
 import {MatTreeFlatDataSource, MatTreeFlattener} from "@angular/material/tree";
 import {LcTask} from "../../model/lc-task";
 import {TaskService} from "../../services/task.service";
+import {TaskFilter} from "../../model/task-filter";
 
 /** Nested node */
 export class TaskNode {
@@ -27,6 +28,7 @@ export class TaskNode {
   styleUrls: ['./task-tree.component.scss'],
 })
 export class TaskTreeComponent implements OnInit {
+  @Input() filter: TaskFilter;
   @Output() selectChanged = new EventEmitter<LcTask>();
   selectedTaskNode = new BehaviorSubject<TaskNode>(null);
   rootTaskNode: TaskNode = new TaskNode({id: -1, name: 'root holder node'}, null);
@@ -80,7 +82,11 @@ export class TaskTreeComponent implements OnInit {
 
   loadChildren(taskNode: TaskNode): Observable<TaskNode[]> {
     const loadTaskNodes = new AsyncSubject<TaskNode[]>();
-    this.taskService.querySubTasks(taskNode.task.id)
+    const filter = new TaskFilter();
+    Object.assign(filter, this.filter);
+    filter.parentId = taskNode.task.id;
+
+    this.taskService.querySubTasks(filter)
       .subscribe(data => {
         const subTasks: TaskNode[] = data.map(task =>
           new TaskNode(task, taskNode));

@@ -13,6 +13,9 @@ import java.util.List;
 public interface LcTaskRepository extends JpaRepository<LcTask,Long> {
     List<LcTask> findAllByParentId(Long parentId);
 
+    @Query(value = "SELECT * FROM LcTask WHERE parentId = :parentId and ((status | childStatus) & :aggStatus) > 0", nativeQuery = true)
+    List<LcTask> findAllByParentIdAndAggStatus(Long parentId, int aggStatus);
+
     @Query(value = "SELECT status | childStatus FROM LcTask WHERE parentId = :id", nativeQuery = true)
     List<Integer> queryAggStatus(Long id);
 

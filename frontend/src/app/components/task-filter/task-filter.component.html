@@ -1,6 +1,6 @@
 <mat-form-field appearance="fill">
   <mat-label>Task Status</mat-label>
-  <mat-select multiple>
+  <mat-select multiple [(ngModel)]="filter.status">
     <mat-option *ngFor="let taskStatusItem of taskStatusRange"
                 [value]="taskStatusItem.code">{{taskStatusItem.name}}</mat-option>
   </mat-select>

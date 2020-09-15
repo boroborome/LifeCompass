@@ -112,7 +112,7 @@ public class LcTaskService {
     }
 
     public List<LcTask> querySubTasks(TaskFilter filter) {
-        return null;
+        return lcTaskRepository.findAllByParentIdAndAggStatus(filter.getParentId(), filter.getAggStatus());
     }
 
     public LcTask updateTask(LcTask newTask) {

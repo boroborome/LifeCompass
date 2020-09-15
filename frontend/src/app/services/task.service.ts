@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {ApiService} from "./api.service";
 import {Observable} from "rxjs";
 import {LcTask} from "../model/lc-task";
+import {TaskFilter} from "../model/task-filter";
 
 const TaskPrefix: string = 'task';
 
@@ -26,9 +27,14 @@ export class TaskService {
     return this.http.get(this.url(''));
   }
 
-  querySubTasks(id: number): Observable<LcTask[]> {
+  querySubTasks(filter: TaskFilter): Observable<LcTask[]> {
     // @ts-ignore
-    return this.http.get(this.url(`${id}/sub-task`));
+    return this.http.post(this.url(''),
+      filter,
+      {headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+          'cmd': 'query-sub-tasks'
+        })});
   }
 
   createTask(newTask: LcTask): Observable<LcTask> {

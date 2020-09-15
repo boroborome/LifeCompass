@@ -1,7 +1,7 @@
 <div fxLayout='column'>
   <div>
     过滤条件：
-    <app-task-filter></app-task-filter>
+    <app-task-filter #taskFilter></app-task-filter>
   </div>
   <div fxLayout='row' fxLayoutGap='10px'>
     <div fxLayout="column">
@@ -9,7 +9,7 @@
         <mat-icon (click)="taskTree.createRootTask()">add</mat-icon>
         <mat-icon (click)="refreshTaskList()">toys</mat-icon>
       </div>
-      <app-task-tree #taskTree (selectChanged)="taskDetail.setTask($event)"></app-task-tree>
+      <app-task-tree #taskTree (selectChanged)="taskDetail.setTask($event)" [filter]="taskFilter.filter"></app-task-tree>
     </div>
     <app-task-edit-pane #taskDetail fxFlex></app-task-edit-pane>
   </div>
