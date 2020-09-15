@@ -5,6 +5,7 @@ import com.happy3w.lifecompass.model.TaskFilter;
 import com.happy3w.lifecompass.repository.LcTaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
@@ -12,11 +13,15 @@ import java.text.MessageFormat;
 import java.util.List;
 import java.util.Optional;
 import java.util.Stack;
+import java.util.function.Predicate;
 
 @Service
 public class LcTaskService {
     @Autowired
     private LcTaskRepository lcTaskRepository;
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     public LcTask deleteTask(Long id) {
         LcTask task = lcTaskRepository.findById(id).orElse(null);
@@ -25,6 +30,7 @@ public class LcTaskService {
         }
 
         deepDeleteTask(task);
+        refreshStatus(task.getParentId());
         return task;
     }
 
@@ -58,21 +64,48 @@ public class LcTaskService {
     }
 
     private void appendStatus(Long taskId, int status) {
-        Long parentId = taskId;
+        traverseToRoot(taskId, task -> {
+            if ((task.getStatus() & status) == status) {
+                return false;
+            }
+            lcTaskRepository.appendChildStatusById(task.getId(), status);
+            return true;
+        });
+    }
+
+    private void refreshStatus(Long taskId) {
+        traverseToRoot(taskId, task -> {
+            int aggStatus = 0;
+            for (int status : lcTaskRepository.queryChildrenStatus(task.getId())) {
+                aggStatus |= status;
+            }
+            if (task.getStatus() == aggStatus) {
+                return false;
+            }
+
+            task.setStatus(aggStatus);
+            lcTaskRepository.save(task);
+            return true;
+        });
+    }
+
+    private void traverseToRoot(Long startTaskId, Predicate<LcTask> action) {
+        Long parentId = startTaskId;
 
         while (parentId != null && parentId != LcTask.ROOT_PARENT_ID) {
             Optional<LcTask> taskOpt = lcTaskRepository.findById(parentId);
             if (!taskOpt.isPresent()) {
-                return;
+                break;
             }
 
             LcTask task = taskOpt.get();
-            if ((task.getStatus() & status) == status) {
-                return;
+
+            boolean shouldContinue = action.test(task);
+            if (!shouldContinue) {
+                break;
             }
 
             parentId = task.getParentId();
-            lcTaskRepository.appendChildStatusById(task.getId(), status);
         }
     }
 

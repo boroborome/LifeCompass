@@ -13,6 +13,9 @@ import java.util.List;
 public interface LcTaskRepository extends JpaRepository<LcTask,Long> {
     List<LcTask> findAllByParentId(Long parentId);
 
+    @Query(value = "SELECT status FROM LcTask WHERE id = :id", nativeQuery = true)
+    List<Integer> queryChildrenStatus(Long id);
+
     @Transactional
     @Modifying
     @Query(value = "UPDATE LcTask SET childStatus = childStatus | :newChildStatus WHERE id = :id", nativeQuery = true)
