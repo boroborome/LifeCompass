@@ -11,7 +11,7 @@
   The backend project is based on Springboot
 - frontend
   
-  The frontend project is based on vue 
+  The frontend project is based on angular 
 - publish
    
   The publish project is used to organize backend and frontend together. You can run start.sh to start this project simply.
