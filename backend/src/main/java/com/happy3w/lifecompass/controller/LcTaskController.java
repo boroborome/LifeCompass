@@ -64,8 +64,9 @@ public class LcTaskController {
 
     @ResponseBody
     @PutMapping(path = "/{id}")
-    public LcTask updateTask(@RequestBody LcTask newTask) {
-        return lcTaskRepository.save(newTask);
+    public LcTask updateTask(@RequestBody LcTask newTask, @PathVariable Long id) {
+        newTask.setId(id);
+        return lcTaskService.updateTask(newTask);
     }
 
     @ResponseBody

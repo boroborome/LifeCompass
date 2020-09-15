@@ -3,6 +3,7 @@ package com.happy3w.lifecompass.service;
 import com.happy3w.lifecompass.entity.LcTask;
 import com.happy3w.lifecompass.model.TaskFilter;
 import com.happy3w.lifecompass.repository.LcTaskRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -11,6 +12,7 @@ import org.springframework.web.client.HttpClientErrorException;
 
 import java.text.MessageFormat;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Stack;
 import java.util.function.Predicate;
@@ -76,14 +78,14 @@ public class LcTaskService {
     private void refreshStatus(Long taskId) {
         traverseToRoot(taskId, task -> {
             int aggStatus = 0;
-            for (int status : lcTaskRepository.queryChildrenStatus(task.getId())) {
+            for (int status : lcTaskRepository.queryAggStatus(task.getId())) {
                 aggStatus |= status;
             }
-            if (task.getStatus() == aggStatus) {
+            if (task.getChildStatus() == aggStatus) {
                 return false;
             }
 
-            task.setStatus(aggStatus);
+            task.setChildStatus(aggStatus);
             lcTaskRepository.save(task);
             return true;
         });
@@ -111,5 +113,29 @@ public class LcTaskService {
 
     public List<LcTask> querySubTasks(TaskFilter filter) {
         return null;
+    }
+
+    public LcTask updateTask(LcTask newTask) {
+        LcTask originTask = lcTaskRepository.findById(newTask.getId())
+                .orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND,
+                        MessageFormat.format("No task with id:{0}", newTask.getId())));
+        boolean statusChange = originTask.getStatus() != newTask.getStatus();
+        Long originParent = originTask.getParentId();
+        Long newParent = newTask.getParentId();
+        int childStatus = originTask.getChildStatus();
+
+        BeanUtils.copyProperties(newTask, originTask);
+        originTask.setChildStatus(childStatus);
+        lcTaskRepository.save(originTask);
+
+        boolean parentChange = !Objects.equals(originParent, newParent);
+        if (statusChange || parentChange) {
+            refreshStatus(originParent);
+        }
+        if (parentChange) {
+            refreshStatus(newParent);
+        }
+
+        return originTask;
     }
 }

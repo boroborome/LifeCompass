@@ -13,8 +13,8 @@ import java.util.List;
 public interface LcTaskRepository extends JpaRepository<LcTask,Long> {
     List<LcTask> findAllByParentId(Long parentId);
 
-    @Query(value = "SELECT status FROM LcTask WHERE id = :id", nativeQuery = true)
-    List<Integer> queryChildrenStatus(Long id);
+    @Query(value = "SELECT status | childStatus FROM LcTask WHERE parentId = :id", nativeQuery = true)
+    List<Integer> queryAggStatus(Long id);
 
     @Transactional
     @Modifying
