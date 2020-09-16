@@ -2,18 +2,17 @@ server:
   port: 8086
 spring:
   datasource:
-    url: jdbc:derby:db/life-compass;create=true
-    default-catalog: App
+    url: jdbc:sqlite:db/sqlite/life-compass.db
     username:
     password:
-    driver-class-name: org.apache.derby.jdbc.EmbeddedDriver
+    driver-class-name: org.sqlite.JDBC
 
   jpa:
     hibernate:
       ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-      database-platform: org.hibernate.dialect.DerbyTenSevenDialect
+    database-platform: com.happy3w.lifecompass.utils.dialect.SqliteDialect
   servlet:
     multipart:
       max-file-size: 20MB
