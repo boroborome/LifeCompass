@@ -39,6 +39,7 @@ dependencies {
 	testImplementation('org.dbunit:dbunit:2.5.3') {
 		exclude group: 'junit', module: 'junit' //by both name and group
 	}
+	testRuntimeOnly 'com.h2database:h2'
 	testImplementation 'io.rest-assured:spring-mock-mvc:3.0.0'
 	testCompileOnly 'org.projectlombok:lombok'
 	testAnnotationProcessor 'org.projectlombok:lombok'
