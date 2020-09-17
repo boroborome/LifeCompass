@@ -7,7 +7,7 @@
     </mat-form-field>
 </p>
 <p>
-    <mat-form-field appearance="legacy">
+    <mat-form-field appearance="outline">
         <mat-label>Task Description</mat-label>
         <input matInput placeholder="Placeholder" [(ngModel)]="taskShowed.description" (change)="notifyDirty()">
         <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
@@ -55,7 +55,7 @@
     </mat-radio-group>
 </p>
 <p>
-    <mat-form-field class="example-full-width">
+    <mat-form-field appearance="outline">
         <mat-label>备注</mat-label>
         <textarea matInput #message maxlength="256" placeholder="Ex. I need help with..."
                   [(ngModel)]="taskShowed.remark" (change)="notifyDirty()">
