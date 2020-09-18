@@ -44,42 +44,45 @@
     </mat-error>
   </mat-form-field>
 </p>
-<p fxLayoutGap='30px'>
-  <mat-label>优先级</mat-label>
-  <mat-radio-group aria-label="优先级" [(ngModel)]="taskShowed.priority"
+<div fxLayout='row'>
+  <mat-label fxFlex="10" fxFlexAlign="center">优先级</mat-label>
+  <mat-radio-group fxFlex aria-label="优先级" [(ngModel)]="taskShowed.priority"
                    fxLayoutGap='30px'
                    (ngModelChange)="notifyDirty()">
     <mat-radio-button value="1">高</mat-radio-button>
     <mat-radio-button value="0">中</mat-radio-button>
     <mat-radio-button value="-1">低</mat-radio-button>
   </mat-radio-group>
-</p>
-<p fxLayoutGap='30px'>
-  <mat-label>时机</mat-label>
-  {{taskShowed.opportunity}}
-  <mat-slider thumbLabel
-              tickInterval="1" min="0" max="10"
-              [(ngModel)]="taskShowed.opportunity" (ngModelChange)="notifyDirty()">
-  </mat-slider>
-</p>
-<p fxLayoutGap='30px'>
-  <mat-label>痛苦度</mat-label>
-  {{taskShowed.painLevel}}
-  <mat-slider thumbLabel
-              tickInterval="1" min="0" max="10"
-              [(ngModel)]="taskShowed.painLevel" (ngModelChange)="notifyDirty()">
-  </mat-slider>
-  <mat-icon matTooltip="如果不做这个事情，能有多痛苦">help_outline</mat-icon>
-</p>
-<p fxLayoutGap='30px'>
-  <mat-label>热情</mat-label>
-  {{taskShowed.yearnLevel}}
-  <mat-slider thumbLabel
-              tickInterval="1" min="0" max="10"
-              [(ngModel)]="taskShowed.yearnLevel" (ngModelChange)="notifyDirty()">
-  </mat-slider>
-  <mat-icon matTooltip="有多么想做这个事情">help_outline</mat-icon>
-</p>
+</div>
+<div fxLayout='row'>
+  <mat-label fxFlex="10" fxFlexAlign="center">时机</mat-label>
+  <div fxFlex>{{taskShowed.opportunity}}
+    <mat-slider thumbLabel
+                tickInterval="1" min="0" max="10"
+                [(ngModel)]="taskShowed.opportunity" (ngModelChange)="notifyDirty()">
+    </mat-slider>
+  </div>
+</div>
+<div fxLayout='row'>
+  <mat-label fxFlex="10" fxFlexAlign="center">痛苦度</mat-label>
+  <div fxFlex>{{taskShowed.painLevel}}
+    <mat-slider thumbLabel
+                tickInterval="1" min="0" max="10"
+                [(ngModel)]="taskShowed.painLevel" (ngModelChange)="notifyDirty()">
+    </mat-slider>
+    <mat-icon matTooltip="如果不做这个事情，能有多痛苦">help_outline</mat-icon>
+  </div>
+</div>
+<div fxLayout='row'>
+  <mat-label fxFlex="10" fxFlexAlign="center">热情</mat-label>
+  <div fxFlex>{{taskShowed.yearnLevel}}
+    <mat-slider thumbLabel
+                tickInterval="1" min="0" max="10"
+                [(ngModel)]="taskShowed.yearnLevel" (ngModelChange)="notifyDirty()">
+    </mat-slider>
+    <mat-icon matTooltip="有多么想做这个事情">help_outline</mat-icon>
+  </div>
+</div>
 <p>
   <mat-form-field appearance="outline">
     <mat-label>备注</mat-label>
