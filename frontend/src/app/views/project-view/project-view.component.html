@@ -9,7 +9,8 @@
         <mat-icon (click)="taskTree.createRootTask()">add</mat-icon>
         <mat-icon (click)="taskTree.reloadRoot()">toys</mat-icon>
       </div>
-      <app-task-tree #taskTree (selectChanged)="taskDetail.setTask($event)" [filter]="taskFilter.filter"></app-task-tree>
+      <app-task-tree #taskTree (selectChanged)="taskDetail.setTask($event)"
+                     [filter]="taskFilter.filter"></app-task-tree>
     </div>
     <app-task-edit-pane #taskDetail fxFlex></app-task-edit-pane>
   </div>

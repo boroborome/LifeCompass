@@ -1,66 +1,66 @@
 <p>
-    <mat-form-field appearance="legacy">
-        <mat-label>Task Name</mat-label>
-        <input matInput placeholder="Placeholder" [(ngModel)]="taskShowed.name" (change)="notifyDirty()">
-        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-        <mat-hint>Hint</mat-hint>
-    </mat-form-field>
+  <mat-form-field appearance="legacy">
+    <mat-label>Task Name</mat-label>
+    <input matInput placeholder="Placeholder" [(ngModel)]="taskShowed.name" (change)="notifyDirty()">
+    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    <mat-hint>Hint</mat-hint>
+  </mat-form-field>
 </p>
 <p>
-    <mat-form-field appearance="outline">
-        <mat-label>Task Description</mat-label>
-        <input matInput placeholder="Placeholder" [(ngModel)]="taskShowed.description" (change)="notifyDirty()">
-        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-        <mat-hint>Hint</mat-hint>
-    </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Task Description</mat-label>
+    <input matInput placeholder="Placeholder" [(ngModel)]="taskShowed.description" (change)="notifyDirty()">
+    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    <mat-hint>Hint</mat-hint>
+  </mat-form-field>
 </p>
 <p>
-    <mat-form-field appearance="fill">
-        <mat-label>Task Status</mat-label>
-        <mat-select [(ngModel)]="taskShowed.status" (ngModelChange)="notifyDirty()">
-          <mat-option *ngFor="let taskStatusItem of taskStatusRange"
-                      [value]="taskStatusItem.code">{{taskStatusItem.name}}</mat-option>
-        </mat-select>
-    </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Task Status</mat-label>
+    <mat-select [(ngModel)]="taskShowed.status" (ngModelChange)="notifyDirty()">
+      <mat-option *ngFor="let taskStatusItem of taskStatusRange"
+                  [value]="taskStatusItem.code">{{taskStatusItem.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
 </p>
 <p>
-    <mat-form-field appearance="fill">
-        <mat-label>计划开始时间</mat-label>
-      <input matInput [formControl]="planStartFormControl"
-             [(ngModel)]="taskShowed.planStartTime" (change)="notifyDirty()">
-      <mat-hint>e.g.: 2020-09-12 or 2020-09-12 14:00</mat-hint>
-      <mat-error *ngIf="planStartFormControl.hasError('pattern')">
-        Wrong format
-      </mat-error>
-    </mat-form-field>
-    -
-    <mat-form-field appearance="fill">
-        <mat-label>计划结束时间</mat-label>
-        <input matInput [formControl]="planEndFormControl"
-               [(ngModel)]="taskShowed.planEndTime" (change)="notifyDirty()">
-      <mat-hint>e.g.: 2020-09-12 or 2020-09-12 14:00</mat-hint>
-      <mat-error *ngIf="planEndFormControl.hasError('pattern')">
-        Wrong format
-      </mat-error>
-    </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>计划开始时间</mat-label>
+    <input matInput [formControl]="planStartFormControl"
+           [(ngModel)]="taskShowed.planStartTime" (change)="notifyDirty()">
+    <mat-hint>e.g.: 2020-09-12 or 2020-09-12 14:00</mat-hint>
+    <mat-error *ngIf="planStartFormControl.hasError('pattern')">
+      Wrong format
+    </mat-error>
+  </mat-form-field>
+  -
+  <mat-form-field appearance="fill">
+    <mat-label>计划结束时间</mat-label>
+    <input matInput [formControl]="planEndFormControl"
+           [(ngModel)]="taskShowed.planEndTime" (change)="notifyDirty()">
+    <mat-hint>e.g.: 2020-09-12 or 2020-09-12 14:00</mat-hint>
+    <mat-error *ngIf="planEndFormControl.hasError('pattern')">
+      Wrong format
+    </mat-error>
+  </mat-form-field>
 </p>
 <p fxLayoutGap='30px'>
-    <mat-label>优先级</mat-label>
-    <mat-radio-group aria-label="优先级" [(ngModel)]="taskShowed.priority"
-                     fxLayoutGap='30px'
-                     (ngModelChange)="notifyDirty()">
-        <mat-radio-button value="1">高</mat-radio-button>
-        <mat-radio-button value="0">中</mat-radio-button>
-        <mat-radio-button value="-1">低</mat-radio-button>
-    </mat-radio-group>
+  <mat-label>优先级</mat-label>
+  <mat-radio-group aria-label="优先级" [(ngModel)]="taskShowed.priority"
+                   fxLayoutGap='30px'
+                   (ngModelChange)="notifyDirty()">
+    <mat-radio-button value="1">高</mat-radio-button>
+    <mat-radio-button value="0">中</mat-radio-button>
+    <mat-radio-button value="-1">低</mat-radio-button>
+  </mat-radio-group>
 </p>
 <p fxLayoutGap='30px'>
-    <mat-label>时机</mat-label>
-    {{taskShowed.opportunity}}
-    <mat-slider thumbLabel
-      tickInterval="1" min="0" max="10"
-      [(ngModel)]="taskShowed.opportunity" (ngModelChange)="notifyDirty()">
-    </mat-slider>
+  <mat-label>时机</mat-label>
+  {{taskShowed.opportunity}}
+  <mat-slider thumbLabel
+              tickInterval="1" min="0" max="10"
+              [(ngModel)]="taskShowed.opportunity" (ngModelChange)="notifyDirty()">
+  </mat-slider>
 </p>
 <p fxLayoutGap='30px'>
   <mat-label>痛苦度</mat-label>
@@ -81,17 +81,17 @@
   <mat-icon matTooltip="有多么想做这个事情">help_outline</mat-icon>
 </p>
 <p>
-    <mat-form-field appearance="outline">
-        <mat-label>备注</mat-label>
-        <textarea matInput #message maxlength="256" placeholder="Ex. I need help with..."
-                  [(ngModel)]="taskShowed.remark" (change)="notifyDirty()">
+  <mat-form-field appearance="outline">
+    <mat-label>备注</mat-label>
+    <textarea matInput #message maxlength="256" placeholder="Ex. I need help with..."
+              [(ngModel)]="taskShowed.remark" (change)="notifyDirty()">
 
         </textarea>
-        <mat-hint align="start"><strong>Don't disclose personal info</strong> </mat-hint>
-        <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
-      </mat-form-field>
+    <mat-hint align="start"><strong>Don't disclose personal info</strong></mat-hint>
+    <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+  </mat-form-field>
 </p>
 <p>
-    <button mat-stroked-button (click)="apply()">应用</button>
-    <button mat-stroked-button (click)="cancel()">取消</button>
+  <button mat-stroked-button (click)="apply()">应用</button>
+  <button mat-stroked-button (click)="cancel()">取消</button>
 </p>
