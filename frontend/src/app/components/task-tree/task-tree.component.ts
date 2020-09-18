@@ -87,8 +87,10 @@ export class TaskTreeComponent implements OnInit {
 
     this.taskService.querySubTasks(filter)
       .subscribe(data => {
-        const subTasks: TaskNode[] = data.map(task =>
-          new TaskNode(task, taskNode));
+        const subTasks: TaskNode[] =
+          data.sort((a, b) => -LcTask.compare(a, b))
+          .map(task =>
+            new TaskNode(task, taskNode));
         taskNode.childrenChange.next(subTasks);
         this.refreshTaskTree();
         loadTaskNodes.next(subTasks);
