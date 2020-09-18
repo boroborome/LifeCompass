@@ -55,7 +55,7 @@
   <mat-form-field appearance="fill">
     <mat-label>计划开始时间</mat-label>
     <input matInput [formControl]="planStartFormControl"
-           [(ngModel)]="taskShowed.planStartTime" (change)="notifyDirty()">
+           [(ngModel)]="taskShowed.planStartTimeStr" (change)="notifyDirty()">
     <mat-hint>e.g.: 2020-09-12 or 2020-09-12 14:00</mat-hint>
     <mat-error *ngIf="planStartFormControl.hasError('pattern')">
       Wrong format
@@ -65,7 +65,7 @@
   <mat-form-field appearance="fill">
     <mat-label>计划结束时间</mat-label>
     <input matInput [formControl]="planEndFormControl"
-           [(ngModel)]="taskShowed.planEndTime" (change)="notifyDirty()">
+           [(ngModel)]="taskShowed.planEndTimeStr" (change)="notifyDirty()">
     <mat-hint>e.g.: 2020-09-12 or 2020-09-12 14:00</mat-hint>
     <mat-error *ngIf="planEndFormControl.hasError('pattern')">
       Wrong format
@@ -75,7 +75,7 @@
 <p>
   <mat-form-field appearance="fill">
     <mat-label>Task Status</mat-label>
-    <mat-select [(ngModel)]="taskShowed.status" (ngModelChange)="notifyDirty()">
+    <mat-select [(ngModel)]="taskShowed.statusStr" (ngModelChange)="notifyDirty()">
       <mat-option *ngFor="let taskStatusItem of taskStatusRange"
                   [value]="taskStatusItem.code">{{taskStatusItem.name}}</mat-option>
     </mat-select>

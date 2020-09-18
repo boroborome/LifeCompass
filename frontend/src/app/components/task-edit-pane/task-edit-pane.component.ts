@@ -57,7 +57,7 @@ class LcTaskShow extends LcTask {
     task.planEndTime = this.timestampDate(this.planEndTimeStr);
     task.actualStartTime = this.timestampDate(this.actualStartTimeStr);
     task.actualEndTime = this.timestampDate(this.actualEndTimeStr);
-    task.status = this.status == null ? 0 : parseInt(this.statusStr)
+    task.status = this.statusStr == null ? 0 : parseInt(this.statusStr)
 
     return task;
   }
