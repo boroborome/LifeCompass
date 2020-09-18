@@ -3,7 +3,6 @@ export class LcTask {
   parentId?: number;
   name?: string;
   description?: string;
-  priority?: number;
   status?: number;
   planStartTime?: number;
   planEndTime?: number;

@@ -8,7 +8,6 @@ CREATE TABLE LcTask (
     parentId BIGINT,
     planEndTime BIGINT,
     planStartTime BIGINT,
-    priority INTEGER,
     remark VARCHAR,
     opportunity INTEGER default 0,
     painLevel INTEGER default 0,

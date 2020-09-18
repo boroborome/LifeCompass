@@ -7,34 +7,30 @@ import * as moment from "moment";
 import {EnumItem} from "../../utils/enum-item";
 import {MasterService} from "../../services/master.service";
 
-class LcTaskShow {
+class LcTaskShow extends LcTask {
   static DATE_FORMAT = 'YYYY-MM-DD';
   static DATE_TIME_FORMAT = LcTaskShow.DATE_FORMAT + ' HH:mm';
 
-  id?: number;
-  parentId?: number;
-  name?: string;
-  description?: string;
-  priority?: string;
-  status?: string;
-  planStartTime?: string;
-  planEndTime?: string;
-  actualStartTime?: string;
-  actualEndTime?: string;
-  remark?: string;
-  opportunity?: number;
-  painLevel?: number;
-  yearnLevel?: number;
+  statusStr?: string;
+  planStartTimeStr?: string;
+  planEndTimeStr?: string;
+  actualStartTimeStr?: string;
+  actualEndTimeStr?: string;
+  priority?: number;
 
   copy(task: LcTask) {
     Object.assign(this, task);
 
-    this.planStartTime = this.stringDate(task.planStartTime);
-    this.planEndTime = this.stringDate(task.planEndTime);
-    this.actualStartTime = this.stringDate(task.actualStartTime);
-    this.actualEndTime = this.stringDate(task.actualEndTime);
-    this.priority = task.priority == null ? "0": `${task.priority}`;
-    this.status = task.status != null ? task.status.toString() : "0";
+    this.planStartTimeStr = this.stringDate(task.planStartTime);
+    this.planEndTimeStr = this.stringDate(task.planEndTime);
+    this.actualStartTimeStr = this.stringDate(task.actualStartTime);
+    this.actualEndTimeStr = this.stringDate(task.actualEndTime);
+    this.statusStr = task.status != null ? task.status.toString() : "0";
+    this.refreshPriority();
+  }
+
+  refreshPriority() {
+    this.priority = LcTask.calculateTaskScore(this);
   }
 
   stringDate(timestamp: number): string | null {
@@ -57,12 +53,11 @@ class LcTaskShow {
   toTask(): LcTask {
     const task: LcTask = new LcTask();
     Object.assign(task, this);
-    task.planStartTime = this.timestampDate(this.planStartTime);
-    task.planEndTime = this.timestampDate(this.planEndTime);
-    task.actualStartTime = this.timestampDate(this.actualStartTime);
-    task.actualEndTime = this.timestampDate(this.actualEndTime);
-    task.priority = this.priority == null ? 0 : parseInt(this.priority, 10);
-    task.status = this.status == null ? 0 : parseInt(this.status)
+    task.planStartTime = this.timestampDate(this.planStartTimeStr);
+    task.planEndTime = this.timestampDate(this.planEndTimeStr);
+    task.actualStartTime = this.timestampDate(this.actualStartTimeStr);
+    task.actualEndTime = this.timestampDate(this.actualEndTimeStr);
+    task.status = this.status == null ? 0 : parseInt(this.statusStr)
 
     return task;
   }
@@ -147,6 +142,7 @@ export class TaskEditPaneComponent implements OnInit {
   }
 
   notifyDirty() {
+    this.taskShowed.refreshPriority();
     this.dirty = true;
   }
 }

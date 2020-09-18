@@ -43,10 +43,6 @@ public class LcTask {
     private String description;
 
     @Basic
-    @Column(name = "priority")
-    private int priority;
-
-    @Basic
     @Column(name = "status")
     private int status = TaskStatus.normal.getValue();
 
