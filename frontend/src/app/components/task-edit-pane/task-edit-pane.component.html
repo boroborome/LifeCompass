@@ -3,15 +3,14 @@
     <mat-label>Task Name</mat-label>
     <input matInput placeholder="Placeholder" [(ngModel)]="taskShowed.name" (change)="notifyDirty()">
     <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-    <mat-hint>Hint</mat-hint>
   </mat-form-field>
 </p>
 <p>
   <mat-form-field appearance="outline">
     <mat-label>Task Description</mat-label>
-    <input matInput placeholder="Placeholder" [(ngModel)]="taskShowed.description" (change)="notifyDirty()">
-    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-    <mat-hint>Hint</mat-hint>
+    <textarea matInput #message maxlength="256" placeholder="Ex. I need help with..."
+              [(ngModel)]="taskShowed.description" (change)="notifyDirty()">
+    </textarea>
   </mat-form-field>
 </p>
 <p>
