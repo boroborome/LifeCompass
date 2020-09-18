@@ -16,6 +16,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatButtonModule } from '@angular/material/button';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 import { ServicesModule } from './services/services.module';
 
@@ -52,6 +53,7 @@ import { TaskFilterComponent } from './components/task-filter/task-filter.compon
     MatButtonModule,
     MatMomentDateModule,
     MatRadioModule,
+    MatTooltipModule,
     BrowserAnimationsModule,
 
     ServicesModule,

@@ -11,4 +11,8 @@ export class LcTask {
   actualStartTime?: number;
   actualEndTime?: number;
   remark?: string;
+  opportunity?: number;
+  painLevel?: number;
+  yearnLevel?: number;
+  childStatus?: number;
 }

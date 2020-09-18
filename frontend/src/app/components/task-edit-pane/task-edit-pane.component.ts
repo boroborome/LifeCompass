@@ -22,6 +22,9 @@ class LcTaskShow {
   actualStartTime?: string;
   actualEndTime?: string;
   remark?: string;
+  opportunity?: number;
+  painLevel?: number;
+  yearnLevel?: number;
 
   copy(task: LcTask) {
     Object.assign(this, task);

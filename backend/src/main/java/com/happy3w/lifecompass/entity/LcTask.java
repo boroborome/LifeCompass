@@ -71,6 +71,18 @@ public class LcTask {
     private String remark;
 
     @Basic
+    @Column(name = "opportunity")
+    private int opportunity;
+
+    @Basic
+    @Column(name = "painLevel")
+    private int painLevel;
+
+    @Basic
+    @Column(name = "yearnLevel")
+    private int yearnLevel;
+
+    @Basic
     @Column(name = "childStatus")
     private int childStatus;
 }
