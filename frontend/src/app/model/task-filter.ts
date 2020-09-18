@@ -1,4 +1,4 @@
 export class TaskFilter {
-  parentId: number;
+  parentId?: number;
   status: string[];
 }

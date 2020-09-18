@@ -9,7 +9,7 @@ import {TaskFilter} from "../../model/task-filter";
   styleUrls: ['./task-filter.component.scss']
 })
 export class TaskFilterComponent implements OnInit {
-  filter: TaskFilter = new TaskFilter();
+  @Input() filter: TaskFilter = new TaskFilter();
 
   taskStatusRange: EnumItem[] = [];
   constructor(private masterService: MasterService,) { }

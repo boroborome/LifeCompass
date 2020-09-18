@@ -1,7 +1,7 @@
 <div fxLayout='column'>
   <div>
     过滤条件：
-    <app-task-filter #taskFilter></app-task-filter>
+    <app-task-filter #taskFilter [filter]="defaultFilter"></app-task-filter>
   </div>
   <div fxLayout='row' fxLayoutGap='10px'>
     <div fxLayout="column">
