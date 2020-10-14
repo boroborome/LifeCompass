@@ -1,1 +1,51 @@
-<p>history-view works!</p>
+<div>
+  <form nz-form [formGroup]="validateForm" class="ant-advanced-search-form">
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="8">
+        <nz-form-item>
+          <nz-form-label nzFor="fieldStartTime">开始时间</nz-form-label>
+          <nz-form-control>
+            <nz-date-picker formControlName="fieldStartTime"></nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="8">
+        <nz-form-item>
+          <nz-form-label nzFor="fieldEndTime">结束时间</nz-form-label>
+          <nz-form-control>
+            <nz-date-picker formControlName="fieldEndTime"></nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row>
+      <div nz-col [nzSpan]="24" class="search-area">
+        <button nz-button (click)="search()">Search</button>
+        <button nz-button (click)="resetForm()">Clear</button>
+      </div>
+    </div>
+  </form>
+  <nz-table #basicTable [nzData]="listOfData" class="search-result-list">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Address</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of basicTable.data">
+      <td>{{ data.name }}</td>
+      <td>{{ data.age }}</td>
+      <td>{{ data.address }}</td>
+      <td>
+        <a>Action 一 {{ data.name }}</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a>Delete</a>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</div>
