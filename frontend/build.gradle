@@ -4,7 +4,7 @@ task build {
     group = 'node'
     doLast {
         exec {
-            commandLine 'npm', 'run', 'build'
+            commandLine 'npm', 'run', 'release'
         }
     }
 }
